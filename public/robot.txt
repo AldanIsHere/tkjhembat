@@ -1,0 +1,1624 @@
+perhatikan struktur database, yang saya punya, amati dan cermati dengan seksama dan tunggu aba aba dari saya selanjutnya,JANGAN KERJAKAN APAPUN DULU!!!!!
+
+
+Flow Siswa :
+dashboard.blade.php
+       │
+       ▼
+index.blade.php (daftar peminjaman siswa)
+       │
+       └─ Tombol "Pinjam Baru"
+               ▼
+       barang.blade.php (lihat semua barang & stok)
+               │
+               └─ Tombol "Pinjam" pada barang tertentu
+                       ▼
+               create.blade.php (form peminjaman barang, barang_id sudah terisi)
+                       │
+                       ▼
+               scan_qr.blade.php (generate & scan QR 4 digit)
+                       │
+                       ▼
+               scan_success.blade.php (QR berhasil divalidasi)
+
+
+Fitur Siswa – Peminjaman Barang
+1️⃣ Dashboard & Daftar Peminjaman
+
+Halaman: dashboard.blade.php → menu utama siswa
+
+Halaman: index.blade.php
+
+Menampilkan daftar peminjaman siswa beserta status:
+
+pending → menunggu validasi QR & persetujuan guru
+
+disetujui → guru menyetujui peminjaman
+
+dipinjam → barang sedang dipinjam
+
+dikembalikan → barang sudah dikembalikan
+
+ditolak → guru menolak peminjaman
+
+Tombol “Pinjam Baru” → arah ke barang.blade.php
+
+2️⃣ Lihat Barang
+
+Halaman: barang.blade.php
+
+Menampilkan semua barang yang tersedia untuk dipinjam
+
+Menampilkan: nama, kategori, stok, lokasi, kondisi
+
+Tombol “Pinjam” → pilih barang tertentu → arah ke create.blade.php dengan barang_id pre-filled
+
+3️⃣ Form Peminjaman
+
+Halaman: create.blade.php
+
+Form peminjaman barang tertentu (sudah dipilih dari barang.blade.php)
+
+Input:
+
+Jumlah barang
+
+Alasan peminjaman
+
+Tanggal pinjam (otomatis default tanggal hari ini)
+
+Submit → simpan di tabel peminjaman
+
+Status otomatis pending
+
+Generate 4 digit QR (qr_code_short) → simpan di DB
+
+Redirect ke halaman scan QR
+
+4️⃣ Generate & Validasi QR
+
+Halaman: scan_qr.blade.php
+
+Menampilkan QR image & kode 4 digit
+
+Siswa menginput ulang 4 digit QR untuk validasi
+
+Jika benar → update qr_validated_at di DB
+
+Jika salah → tampilkan pesan error
+
+5️⃣ Halaman Sukses QR
+
+Halaman: scan_success.blade.php
+
+Menampilkan pesan: “QR berhasil divalidasi, menunggu persetujuan guru”
+
+Tombol kembali ke daftar peminjaman (index.blade.php)
+
+6️⃣ Detail Peminjaman
+
+Halaman: detail.blade.php
+
+Menampilkan detail peminjaman:
+
+Nama barang, jumlah, tanggal pinjam/kembali, alasan
+
+Status peminjaman
+
+QR code (jika belum divalidasi atau sudah divalidasi)
+
+Tombol akses:
+
+Scan QR → jika belum divalidasi
+
+Return → jika status dipinjam
+
+7️⃣ Pengembalian Barang
+
+Halaman: return.blade.php
+
+Digunakan saat barang sudah dipinjam
+
+Form input: kondisi kembali, catatan, denda jika ada
+
+Submit → update status menjadi dikembalikan
+
+
+
+
+struktur database :
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+
+CREATE TABLE `admin` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `nama` varchar(191) NOT NULL,
+  `email` varchar(191) NOT NULL,
+  `password` text NOT NULL,
+  `telepon` varchar(50) DEFAULT NULL,
+  `foto` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `api_sarpras` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `nama` varchar(100) NOT NULL DEFAULT 'sarpras',
+  `base_url` varchar(255) NOT NULL,
+  `api_key` varchar(255) DEFAULT NULL,
+  `api_secret` varchar(255) DEFAULT NULL,
+  `token` text DEFAULT NULL,
+  `tipe_auth` varchar(50) DEFAULT 'bearer',
+  `aktif` tinyint(1) DEFAULT 0,
+  `keterangan` text DEFAULT NULL,
+  `last_sync` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `aturan` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `nama` varchar(191) NOT NULL,
+  `deskripsi` text DEFAULT NULL,
+  `maks_hari` int(11) DEFAULT 7,
+  `denda_hari` decimal(10,2) DEFAULT 0.00,
+  `perlu_setuju` tinyint(1) DEFAULT 1,
+  `role_setuju` varchar(50) DEFAULT 'guru',
+  `aktif` tinyint(1) DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `bahan` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `kode` varchar(100) DEFAULT NULL,
+  `nama` varchar(191) NOT NULL,
+  `stok` decimal(10,2) DEFAULT 0.00,
+  `satuan` varchar(50) DEFAULT 'pcs',
+  `lokasi_id` int(10) UNSIGNED DEFAULT NULL,
+  `keterangan` text DEFAULT NULL,
+  `sarpras_id` varchar(100) DEFAULT NULL,
+  `sarpras_sync` tinyint(1) DEFAULT 0,
+  `sarpras_last_sync` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `barang` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `kode` varchar(100) DEFAULT NULL,
+  `nama` varchar(191) NOT NULL,
+  `kategori_id` int(10) UNSIGNED DEFAULT NULL,
+  `stok` int(11) DEFAULT 0,
+  `satuan` varchar(50) DEFAULT 'unit',
+  `kondisi` varchar(100) DEFAULT 'Baik',
+  `lokasi_id` int(10) UNSIGNED DEFAULT NULL,
+  `keterangan` text DEFAULT NULL,
+  `tipe` varchar(50) DEFAULT NULL,
+  `qr_code` varchar(255) DEFAULT NULL,
+  `sarpras_id` varchar(100) DEFAULT NULL,
+  `sarpras_sync` tinyint(1) DEFAULT NULL,
+  `sarpras_last_sync` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `guru` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `nip` varchar(50) DEFAULT NULL,
+  `nama` varchar(191) NOT NULL,
+  `email` varchar(191) NOT NULL,
+  `password` text NOT NULL,
+  `telepon` varchar(50) DEFAULT NULL,
+  `jabatan` varchar(100) DEFAULT 'Guru',
+  `foto` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `kategori` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `deskripsi` text DEFAULT NULL,
+  `tipe` varchar(50) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `log` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `user_role` varchar(50) DEFAULT NULL,
+  `aksi` varchar(100) NOT NULL,
+  `tabel` varchar(100) DEFAULT NULL,
+  `id_data` bigint(20) UNSIGNED DEFAULT NULL,
+  `data_lama` text DEFAULT NULL,
+  `data_baru` text DEFAULT NULL,
+  `keterangan` text DEFAULT NULL,
+  `ip_address` varchar(45) DEFAULT NULL,
+  `user_agent` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `lokasi` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `nama` varchar(191) NOT NULL,
+  `penanggung_jawab` varchar(191) DEFAULT NULL,
+  `foto_penanggung_jawab` varchar(255) DEFAULT NULL,
+  `keterangan` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `peminjaman` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `kode` varchar(100) DEFAULT NULL,
+  `peminjam_id` bigint(20) UNSIGNED NOT NULL,
+  `peminjam_role` varchar(50) NOT NULL,
+  `setuju_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `setuju_role` varchar(50) DEFAULT NULL,
+  `barang_id` bigint(20) UNSIGNED NOT NULL,
+  `barang_nama` varchar(191) NOT NULL,
+  `jumlah` int(11) DEFAULT 1,
+  `tanggal_pinjam` date NOT NULL,
+  `tanggal_kembali` date DEFAULT NULL,
+  `harus_kembali` date NOT NULL,
+  `status` enum('pending','disetujui','dipinjam','dikembalikan','ditolak') NOT NULL DEFAULT 'pending',
+  `alasan` text DEFAULT NULL,
+  `denda` decimal(10,2) DEFAULT 0.00,
+  `kondisi_pinjam` varchar(191) DEFAULT 'Baik',
+  `kondisi_kembali` varchar(191) DEFAULT NULL,
+  `qr_verifikasi` varchar(255) DEFAULT NULL,
+  `qr_code_short` varchar(4) DEFAULT NULL,
+  `qr_validated_at` timestamp NULL,
+  `sarpras_status` varchar(50) DEFAULT NULL,
+  `sarpras_ref` varchar(100) DEFAULT NULL,
+  `sarpras_response` text DEFAULT NULL,
+  `sarpras_checked_at` timestamp NULL DEFAULT NULL,
+  `catatan` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `penggunaan_bahan` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `kode` varchar(100) DEFAULT NULL,
+  `siswa_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `guru_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `bahan_id` bigint(20) UNSIGNED NOT NULL,
+  `bahan_nama` varchar(191) NOT NULL,
+  `jumlah` decimal(10,2) DEFAULT 0.00,
+  `tanggal` date NOT NULL,
+  `keterangan` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `siswa` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `nis` varchar(50) DEFAULT NULL,
+  `nama` varchar(191) NOT NULL,
+  `email` varchar(191) NOT NULL,
+  `password` text NOT NULL,
+  `kelas` varchar(50) DEFAULT NULL,
+  `jurusan` varchar(100) DEFAULT 'TKJT',
+  `telepon` varchar(50) DEFAULT NULL,
+  `foto` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+struktur projek :
+
+tjkt/
+├── app/
+│   ├── Http/
+│   │   └── Controllers/
+│   │       ├── AuthController.php
+│   │       │
+│   │       ├── Admin/
+│   │       │   ├── DashboardController.php
+│   │       │   ├── BarangController.php
+│   │       │   ├── KategoriController.php
+│   │       │   ├── LokasiController.php
+│   │       │   ├── AturanController.php
+│   │       │   ├── GuruController.php
+│   │       │   ├── SiswaController.php
+│   │       │   └── LaporanController.php
+│   │       │
+│   │       ├── Guru/
+│   │       │   ├── DashboardController.php
+│   │       │   ├── PeminjamanController.php
+│   │       │   └── PenggunaanBahanController.php
+│   │       │
+│   │       └── Siswa/
+│   │           ├── DashboardController.php
+│   │           ├── ScanController.php
+│   │           └── PenggunaanBahanController.php
+│   │           ├── PeminjamanController.php
+│   │           └── ProfilController.php
+│   │
+│   └── Models/
+│       ├── Admin.php
+│       ├── Guru.php
+│       ├── Siswa.php
+│       ├── Barang.php
+│       ├── Bahan.php
+│       ├── Kategori.php
+│       ├── Lokasi.php
+│       ├── Aturan.php
+│       ├── Peminjaman.php
+│       ├── PenggunaanBahan.php
+│       ├── ApiSarpras.php
+│       └── Log.php
+│
+├── public/
+│   ├── uploads/
+│   │   ├── foto_penanggung_jawab/
+│   │   ├── foto_admin/
+│   │   ├── foto_guru/
+│   │   ├── foto_siswa/
+│   │   └── qr_barang/
+│   │   └── qr_verifikasi/
+│   │
+│   └── assets/
+│       ├── css/
+│       ├── js/
+│       └── images/
+│
+├── resources/
+│   └── views/
+│       ├── layouts/
+│       │   ├── admin.blade.php
+│       │   ├── guru.blade.php
+│       │   └── siswa.blade.php
+│       │
+│       ├── auth/
+│       │   ├── login.blade.php(login admin,guru, dan siswa dalam satu halaman)
+│       │   └── register.blade.php
+│       │
+│       ├── admin/
+│       │   ├── dashboard.blade.php
+│       │   ├── barang/
+│       │   │   ├── index.blade.php
+│       │   │   ├── create.blade.php
+│       │   │   └── edit.blade.php
+│       │   ├── kategori/index.blade.php
+│       │   ├── lokasi/index.blade.php
+│       │   ├── aturan/index.blade.php
+│       │   ├── guru/index.blade.php
+│       │   ├── siswa/index.blade.php
+│       │   └── laporan/
+│       │       ├── peminjaman.blade.php
+│       │       └── bahan.blade.php
+│       │
+│       ├── guru/
+│       │   ├── dashboard.blade.php
+│       │   ├── peminjaman/
+│       │   │   ├── index.blade.php
+│       │   │   └── detail.blade.php
+│       │   └── bahan/index.blade.php
+│       │
+│       └── siswa/
+│           ├── dashboard.blade.php           # Halaman utama siswa
+│           ├── profile.blade.php             # Profil siswa, sejajar dashboard
+│           ├── peminjaman/
+│           │   ├── index.blade.php           # Daftar peminjaman siswa
+│           │   ├── detail.blade.php          # Detail peminjaman
+│           │   ├── barang.blade.php          # daftar barang yang tersedia dan sudah habis stok nya
+│           │   ├── create.blade.php          # Form peminjaman barang
+│           │   ├── return.blade.php          # Form pengembalian barang
+│           │   ├── scan_qr.blade.php         # Halaman scan & generate QR
+│           │   └── scan_success.blade.php    # Halaman menampilkan QR sukses
+│           └── penggunaan_bahan/
+│               ├── index.blade.php           # Daftar penggunaan bahan
+│               ├── detail.blade.php          # Detail penggunaan bahan
+│               ├── create.blade.php          # Form pengisian penggunaan bahan
+│               └── list.blade.php            # Daftar bahan tersedia & stok
+│
+├── routes/
+│   └── web.php
+│
+├── .env
+├── composer.json
+├── artisan
+└── public/index.php
+
+
+struktur routes (SEKARANG):
+<?php
+use Illuminate\Support\Facades\Route;
+// =======================
+// AUTH
+// =======================
+Route::get('/', function () {
+    return view('auth.login');
+});
+Route::get('/login', [App\Http\Controllers\AuthController::class, 'loginForm']);
+Route::post('/login', [App\Http\Controllers\AuthController::class, 'login']);
+Route::get('/register', [App\Http\Controllers\AuthController::class, 'registerForm']);
+Route::post('/register', [App\Http\Controllers\AuthController::class, 'register']);
+Route::get('/logout', [App\Http\Controllers\AuthController::class, 'logout']);
+// =======================
+// ADMIN
+// =======================
+Route::get('/admin/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index']);
+Route::get('/admin/barang', [App\Http\Controllers\Admin\BarangController::class, 'index']);
+Route::get('/admin/barang/create', [App\Http\Controllers\Admin\BarangController::class, 'create']);
+Route::post('/admin/barang/store', [App\Http\Controllers\Admin\BarangController::class, 'store']);
+Route::get('/admin/barang/edit/{id}', [App\Http\Controllers\Admin\BarangController::class, 'edit']);
+Route::post('/admin/barang/update/{id}', [App\Http\Controllers\Admin\BarangController::class, 'update']);
+Route::get('/admin/barang/qr/{id}', [App\Http\Controllers\Admin\BarangController::class, 'qr']);
+Route::get('/admin/barang/delete/{id}', [App\Http\Controllers\Admin\BarangController::class, 'delete']);
+Route::get('/admin/kategori', [App\Http\Controllers\Admin\KategoriController::class, 'index']);
+Route::post('/admin/kategori/store', [App\Http\Controllers\Admin\KategoriController::class, 'store']);
+Route::post('/admin/kategori/update/{id}', [App\Http\Controllers\Admin\KategoriController::class, 'update']);
+Route::get('/admin/kategori/delete/{id}', [App\Http\Controllers\Admin\KategoriController::class, 'delete']);
+Route::get('/admin/lokasi', [App\Http\Controllers\Admin\LokasiController::class, 'index']);
+Route::post('/admin/lokasi/store', [App\Http\Controllers\Admin\LokasiController::class, 'store']);
+Route::post('/admin/lokasi/update/{id}', [App\Http\Controllers\Admin\LokasiController::class, 'update']);
+Route::get('/admin/lokasi/delete/{id}', [App\Http\Controllers\Admin\LokasiController::class, 'delete']);
+Route::get('/admin/lokasi/show/{id}', [App\Http\Controllers\Admin\LokasiController::class, 'show']);
+Route::get('/admin/aturan', [App\Http\Controllers\Admin\AturanController::class, 'index']);
+Route::post('/admin/aturan/store', [App\Http\Controllers\Admin\AturanController::class, 'store']);
+Route::post('/admin/aturan/update/{id}', [App\Http\Controllers\Admin\AturanController::class, 'update']);
+Route::get('/admin/aturan/delete/{id}', [App\Http\Controllers\Admin\AturanController::class, 'delete']);
+Route::get('/admin/guru', [App\Http\Controllers\Admin\GuruController::class, 'index']);
+Route::post('/admin/guru/store', [App\Http\Controllers\Admin\GuruController::class, 'store']);
+Route::post('/admin/guru/update/{id}', [App\Http\Controllers\Admin\GuruController::class, 'update']);
+Route::get('/admin/guru/delete/{id}', [App\Http\Controllers\Admin\GuruController::class, 'delete']);
+Route::get('/admin/siswa', [App\Http\Controllers\Admin\SiswaController::class, 'index']);
+Route::post('/admin/siswa/store', [App\Http\Controllers\Admin\SiswaController::class, 'store']);
+Route::post('/admin/siswa/update/{id}', [App\Http\Controllers\Admin\SiswaController::class, 'update']);
+Route::get('/admin/siswa/delete/{id}', [App\Http\Controllers\Admin\SiswaController::class, 'delete']);
+Route::get('/admin/laporan/peminjaman', [App\Http\Controllers\Admin\LaporanController::class, 'peminjaman']);
+Route::get('/admin/laporan/bahan', [App\Http\Controllers\Admin\LaporanController::class, 'bahan']);
+// =======================
+// GURU
+// =======================
+Route::get('/guru/dashboard', [App\Http\Controllers\Guru\DashboardController::class, 'index']);
+Route::get('/guru/peminjaman', [App\Http\Controllers\Guru\PeminjamanController::class, 'index']);
+Route::get('/guru/peminjaman/{id}', [App\Http\Controllers\Guru\PeminjamanController::class, 'detail']);
+Route::post('/guru/peminjaman/setujui/{id}', [App\Http\Controllers\Guru\PeminjamanController::class, 'setujui']);
+Route::post('/guru/peminjaman/tolak/{id}', [App\Http\Controllers\Guru\PeminjamanController::class, 'tolak']);
+Route::get('/guru/bahan', [App\Http\Controllers\Guru\PenggunaanBahanController::class, 'index']);
+Route::post('/guru/bahan/store', [App\Http\Controllers\Guru\PenggunaanBahanController::class, 'store']);
+// =======================
+// SISWA
+// =======================
+Route::get('/siswa/dashboard', [App\Http\Controllers\Siswa\DashboardController::class, 'index']);
+Route::get('/siswa/scan', [App\Http\Controllers\Siswa\ScanController::class, 'index']);
+Route::post('/siswa/scan', [App\Http\Controllers\Siswa\ScanController::class, 'process']);
+Route::get('/siswa/peminjaman', [App\Http\Controllers\Siswa\PeminjamanController::class, 'index']);
+Route::post('/siswa/peminjaman/store', [App\Http\Controllers\Siswa\PeminjamanController::class, 'store']);
+Route::get('/siswa/peminjaman/{id}', [App\Http\Controllers\Siswa\PeminjamanController::class, 'detail']);
+Route::get('/siswa/profil', [App\Http\Controllers\Siswa\ProfilController::class, 'index']);
+Route::post('/siswa/profil/update', [App\Http\Controllers\Siswa\ProfilController::class, 'update']);
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------
+
+lalu ini saya berikan struktur model yang sekarang sebagai pengingat kamu, amati dan cermati dengan seksama dan tunggu aba aba dari saya selanjutnya
+
+
+
+
+
+
+struktur model :
+
+
+
+Admin.php :
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Admin extends Model
+{
+    // Model untuk tabel `admin`
+    // Digunakan untuk login, dashboard, dan manajemen data admin
+    protected $table = 'admin';
+    protected $primaryKey = 'id';
+    public $timestamps = true;
+
+    protected $fillable = [
+        'nama', 'email', 'password', 'telepon', 'foto'
+    ];
+}
+
+Guru.php :
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Guru extends Model
+{
+    // Model untuk tabel `guru`
+    // Digunakan untuk login guru, approve peminjaman, dan pengelolaan bahan
+    protected $table = 'guru';
+    protected $primaryKey = 'id';
+    public $timestamps = true;
+
+    protected $fillable = [
+        'nip', 'nama', 'email', 'password', 'telepon', 'jabatan', 'foto'
+    ];
+}
+
+Siswa.php :
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Siswa extends Model
+{
+    // Model untuk tabel `siswa`
+    // Digunakan untuk login siswa, daftar peminjaman, profil, dan penggunaan bahan
+    protected $table = 'siswa';
+    protected $primaryKey = 'id';
+    public $timestamps = true;
+
+    protected $fillable = [
+        'nis', 'nama', 'email', 'password', 'kelas', 'jurusan', 'telepon', 'foto'
+    ];
+
+    // Relasi ke peminjaman siswa
+    public function peminjaman()
+    {
+        return $this->hasMany(Peminjaman::class, 'peminjam_id');
+    }
+
+    // Relasi ke penggunaan bahan
+    public function penggunaanBahan()
+    {
+        return $this->hasMany(PenggunaanBahan::class, 'siswa_id');
+    }
+}
+
+Barang.php :
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Barang extends Model
+{
+    // Model untuk tabel `barang`
+    // Digunakan untuk pengelolaan barang dan QR
+    protected $table = 'barang';
+    protected $primaryKey = 'id';
+    public $timestamps = true;
+
+    protected $fillable = [
+        'kode', 'nama', 'kategori_id', 'stok', 'satuan', 'kondisi',
+        'lokasi_id', 'keterangan', 'tipe', 'qr_code', 'sarpras_id', 'sarpras_sync', 'sarpras_last_sync'
+    ];
+
+    // Relasi ke kategori
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori::class, 'kategori_id');
+    }
+
+    // Relasi ke lokasi
+    public function lokasi()
+    {
+        return $this->belongsTo(Lokasi::class, 'lokasi_id');
+    }
+
+    // Relasi ke peminjaman
+    public function peminjaman()
+    {
+        return $this->hasMany(Peminjaman::class, 'barang_id');
+    }
+}
+
+Bahan.php :
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Bahan extends Model
+{
+    // Model untuk tabel `bahan`
+    // Digunakan untuk pengelolaan bahan
+    protected $table = 'bahan';
+    protected $primaryKey = 'id';
+    public $timestamps = true;
+
+    protected $fillable = [
+        'kode', 'nama', 'stok', 'satuan', 'lokasi_id', 'keterangan', 'sarpras_id', 'sarpras_sync', 'sarpras_last_sync'
+    ];
+
+    // Relasi ke lokasi
+    public function lokasi()
+    {
+        return $this->belongsTo(Lokasi::class, 'lokasi_id');
+    }
+}
+
+Kategori.php :
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Kategori extends Model
+{
+    // Model untuk tabel `kategori`
+    // Digunakan untuk mengelompokkan barang
+    protected $table = 'kategori';
+    protected $primaryKey = 'id';
+    public $timestamps = true;
+
+    protected $fillable = ['nama', 'deskripsi', 'tipe'];
+
+    // Relasi ke barang
+    public function barang()
+    {
+        return $this->hasMany(Barang::class, 'kategori_id');
+    }
+}
+
+Lokasi.php :
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Lokasi extends Model
+{
+    // Model untuk tabel `lokasi`
+    // Digunakan untuk menyimpan lokasi barang atau bahan
+    protected $table = 'lokasi';
+    protected $primaryKey = 'id';
+    public $timestamps = true;
+
+    protected $fillable = ['nama', 'penanggung_jawab', 'foto_penanggung_jawab', 'keterangan'];
+}
+   
+Aturan.php :
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Aturan extends Model
+{
+    // Model untuk tabel `aturan`
+    // Digunakan untuk aturan peminjaman (maks hari, denda, persetujuan)
+    protected $table = 'aturan';
+    protected $primaryKey = 'id';
+    public $timestamps = true;
+
+    protected $fillable = [
+        'nama', 'deskripsi', 'maks_hari', 'denda_hari', 'perlu_setuju', 'role_setuju', 'aktif'
+    ];
+}
+
+Peminjaman.php :
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Peminjaman extends Model
+{
+    // Model untuk tabel `peminjaman`
+    // Digunakan untuk menyimpan transaksi peminjaman barang
+    protected $table = 'peminjaman';
+    protected $primaryKey = 'id';
+    public $timestamps = true;
+
+    protected $fillable = [
+        'kode', 'peminjam_id', 'peminjam_role', 'setuju_id', 'setuju_role',
+        'barang_id', 'barang_nama', 'jumlah', 'tanggal_pinjam', 'tanggal_kembali', 'harus_kembali',
+        'status', 'alasan', 'denda', 'kondisi_pinjam', 'kondisi_kembali',
+        'qr_verifikasi', 'qr_code_short', 'qr_validated_at',
+        'sarpras_status', 'sarpras_ref', 'sarpras_response', 'sarpras_checked_at', 'catatan'
+    ];
+
+    // Relasi ke siswa
+    public function siswa()
+    {
+        return $this->belongsTo(Siswa::class, 'peminjam_id');
+    }
+
+    // Relasi ke guru
+    public function guru()
+    {
+        return $this->belongsTo(Guru::class, 'setuju_id');
+    }
+
+    // Relasi ke barang
+    public function barang()
+    {
+        return $this->belongsTo(Barang::class, 'barang_id');
+    }
+}
+
+PenggunaanBahan.php :
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class PenggunaanBahan extends Model
+{
+    // Model untuk tabel `penggunaan_bahan`
+    // Digunakan untuk mencatat penggunaan bahan oleh siswa
+    protected $table = 'penggunaan_bahan';
+    protected $primaryKey = 'id';
+    public $timestamps = true;
+
+    protected $fillable = [
+        'kode', 'siswa_id', 'guru_id', 'bahan_id', 'bahan_nama', 'jumlah', 'tanggal', 'keterangan'
+    ];
+
+    public function siswa()
+    {
+        return $this->belongsTo(Siswa::class, 'siswa_id');
+    }
+
+    public function guru()
+    {
+        return $this->belongsTo(Guru::class, 'guru_id');
+    }
+
+    public function bahan()
+    {
+        return $this->belongsTo(Bahan::class, 'bahan_id');
+    }
+}
+
+ApiSarpras.php :
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class ApiSarpras extends Model
+{
+    // Model untuk tabel `api_sarpras`
+    // Digunakan jika ada integrasi dengan sistem sarpras eksternal
+    protected $table = 'api_sarpras';
+    protected $primaryKey = 'id';
+    public $timestamps = true;
+
+    protected $fillable = [
+        'nama', 'base_url', 'api_key', 'api_secret', 'token', 'tipe_auth', 'aktif', 'keterangan', 'last_sync'
+    ];
+}
+
+Log.php :
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Log extends Model
+{
+    // Model untuk tabel `log`
+    // Digunakan untuk mencatat aksi pengguna (audit trail)
+    protected $table = 'log';
+    protected $primaryKey = 'id';
+    public $timestamps = true;
+
+    protected $fillable = [
+        'user_id', 'user_role', 'aksi', 'tabel', 'id_data',
+        'data_lama', 'data_baru', 'keterangan', 'ip_address', 'user_agent'
+    ];
+}
+
+
+
+-----------------------------------------------------------------------------------------------------------
+
+lalu ini saya berikan struktur controller yang sekarang sebagai pengingat kamu, amati dan cermati dengan seksama dan tunggu aba aba dari saya selanjutnya
+
+bagian Controller :
+
+
+AuthController.php :
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Admin;
+use App\Models\Guru;
+use App\Models\Siswa;
+
+class AuthController extends Controller
+{
+    public function loginForm()
+    {
+        return view('auth.login');
+    }
+
+    public function login(Request $request)
+    {
+        $email = $request->email;
+        $password = $request->password;
+
+        // =====================
+        // ADMIN
+        // =====================
+        $admin = Admin::where('email', $email)
+            ->where('password', $password)
+            ->first();
+
+        if ($admin) {
+            session([
+                'user_id' => $admin->id,
+                'role'    => 'admin'
+            ]);
+            return redirect('/admin/dashboard');
+        }
+
+        // =====================
+        // GURU
+        // =====================
+        $guru = Guru::where('email', $email)
+            ->where('password', $password)
+            ->first();
+
+        if ($guru) {
+            session([
+                'user_id' => $guru->id,
+                'role'    => 'guru'
+            ]);
+            return redirect('/guru/dashboard');
+        }
+
+        // =====================
+        // SISWA
+        // =====================
+        $siswa = Siswa::where('email', $email)
+            ->where('password', $password)
+            ->first();
+
+        if ($siswa) {
+            session([
+                'user_id' => $siswa->id,
+                'role'    => 'siswa'
+            ]);
+            return redirect('/siswa/dashboard');
+        }
+
+        return back()->with('error', 'Email atau password salah');
+    }
+
+    public function registerForm()
+    {
+        return view('auth.register');
+    }
+
+    public function register(Request $request)
+    {
+        Siswa::create([
+            'nama'     => $request->nama,
+            'email'    => $request->email,
+            'password' => $request->password, // TANPA HASH
+            'kelas'    => $request->kelas ?? null,
+            'jurusan'  => 'TKJT',
+        ]);
+
+        return redirect('/login')->with('success', 'Registrasi berhasil');
+    }
+
+    public function logout()
+    {
+        session()->flush();
+        return redirect('/login');
+    }
+}
+
+
+struktur Controller (Admin):
+
+AturanController.php :
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\Aturan;
+use Illuminate\Http\Request;
+
+class AturanController extends Controller
+{
+    public function index()
+    {
+        return view('admin.aturan.index', [
+            'aturan' => Aturan::orderBy('aktif', 'desc')->get()
+        ]);
+    }
+
+    public function store(Request $r)
+    {
+        Aturan::create([
+            'nama'          => $r->nama,
+            'deskripsi'     => $r->deskripsi,
+            'maks_hari'     => $r->maks_hari,
+            'denda_hari'    => $r->denda_hari,
+            'perlu_setuju'  => $r->perlu_setuju ?? 0,
+            'role_setuju'   => $r->role_setuju,
+            'aktif'         => $r->aktif ?? 1,
+        ]);
+
+        return back();
+    }
+
+    public function update(Request $r, $id)
+    {
+        Aturan::where('id', $id)->update([
+            'nama'          => $r->nama,
+            'deskripsi'     => $r->deskripsi,
+            'maks_hari'     => $r->maks_hari,
+            'denda_hari'    => $r->denda_hari,
+            'perlu_setuju'  => $r->perlu_setuju ?? 0,
+            'role_setuju'   => $r->role_setuju,
+            'aktif'         => $r->aktif ?? 0,
+        ]);
+
+        return back();
+    }
+
+    public function delete($id)
+    {
+        Aturan::delete($id);
+        return back();
+    }
+}
+
+BarangController.php :
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\Barang;
+use App\Models\Kategori;
+use App\Models\Lokasi;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+
+class BarangController extends Controller
+{
+    public function index()
+    {
+        return view('admin.barang.index', [
+            'barang' => Barang::with(['kategori', 'lokasi'])->get()
+        ]);
+    }
+
+    public function create()
+    {
+        return view('admin.barang.create', [
+            'kategori' => Kategori::all(),
+            'lokasi'   => Lokasi::all()
+        ]);
+    }
+
+    public function store(Request $request)
+    {
+        Barang::create($request->all());
+        return redirect('/admin/barang')->with('success', 'Barang berhasil ditambahkan');
+    }
+
+    public function edit($id)
+    {
+        return view('admin.barang.edit', [
+            'barang'   => Barang::findOrFail($id),
+            'kategori' => Kategori::all(),
+            'lokasi'   => Lokasi::all()
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        Barang::where('id', $id)->update($request->all());
+        return redirect('/admin/barang')->with('success', 'Barang berhasil diupdate');
+    }
+
+    public function delete($id)
+    {
+        Barang::where('id', $id)->delete();
+        return back()->with('success', 'Barang berhasil dihapus');
+    }
+
+    public function qr($id)
+    {
+        $barang = Barang::findOrFail($id);
+
+        $folder = public_path('uploads/qr_barang');
+        if (!file_exists($folder)) {
+            mkdir($folder, 0777, true);
+        }
+
+        $filename = 'qr_' . $barang->id . '.svg';
+        $path = $folder . '/' . $filename;
+
+        QrCode::format('svg')
+            ->size(300)
+            ->generate($barang->nama, $path);
+
+        $barang->update(['qr_code' => $filename]);
+
+        return back()->with('success', 'QR berhasil dibuat');
+    }
+}
+
+
+DashboardController.php :
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\Barang;
+use App\Models\Peminjaman;
+use App\Models\Siswa;
+use App\Models\Guru;
+use App\Models\Bahan;
+
+class DashboardController extends Controller
+{
+    public function index()
+    {
+        return view('admin.dashboard', [
+            // CARD UTAMA
+            'total_barang'      => Barang::count(),
+            'total_bahan'       => Bahan::count(),
+            'total_peminjaman'  => Peminjaman::count(),
+            'total_siswa'       => Siswa::count(),
+            'total_guru'        => Guru::count(),
+
+            // STATUS PEMINJAMAN
+            'pinjam_aktif'      => Peminjaman::where('status', 'dipinjam')->count(),
+            'pinjam_selesai'    => Peminjaman::where('status', 'kembali')->count(),
+            'pinjam_menunggu'   => Peminjaman::where('status', 'menunggu')->count(),
+        ]);
+    }
+}
+
+GuruController.php :
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\Guru;
+
+class GuruController extends Controller
+{
+    public function index()
+    {
+        return view('admin.guru.index', [
+            'guru' => Guru::all()
+        ]);
+    }
+
+    public function store(Request $request)
+    {
+        Guru::create([
+            'nip'      => $request->nip,
+            'nama'     => $request->nama,
+            'email'    => $request->email,
+            'password' => $request->password, // TANPA HASH
+            'telepon'  => $request->telepon,
+            'jabatan'  => $request->jabatan,
+        ]);
+
+        return back()->with('success', 'Guru berhasil ditambahkan');
+    }
+
+    public function update(Request $request, $id)
+    {
+        Guru::where('id', $id)->update([
+            'nip'      => $request->nip,
+            'nama'     => $request->nama,
+            'email'    => $request->email,
+            'password' => $request->password,
+            'telepon'  => $request->telepon,
+            'jabatan'  => $request->jabatan,
+        ]);
+
+        return back()->with('success', 'Data guru berhasil diupdate');
+    }
+
+    public function delete($id)
+    {
+        Guru::where('id', $id)->delete();
+        return back()->with('success', 'Guru berhasil dihapus');
+    }
+}
+
+KategoriController.php :
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\Kategori;
+
+class KategoriController extends Controller
+{
+    public function index()
+    {
+        return view('admin.kategori.index', [
+            'kategori' => Kategori::all()
+        ]);
+    }
+
+    public function store(Request $request)
+    {
+        Kategori::create([
+            'nama' => $request->nama,
+            'deskripsi' => $request->deskripsi,
+            'tipe' => $request->tipe,
+        ]);
+
+        return back()->with('success', 'Kategori berhasil ditambahkan');
+    }
+
+    public function update(Request $request, $id)
+    {
+        Kategori::where('id', $id)->update([
+            'nama' => $request->nama,
+            'deskripsi' => $request->deskripsi,
+            'tipe' => $request->tipe,
+        ]);
+
+        return back()->with('success', 'Kategori berhasil diupdate');
+    }
+
+    public function delete($id)
+    {
+        Kategori::where('id', $id)->delete();
+        return back()->with('success', 'Kategori berhasil dihapus');
+    }
+}
+
+LaporanController.php :
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\Peminjaman;
+use App\Models\PenggunaanBahan;
+
+class LaporanController extends Controller
+{
+    public function peminjaman()
+    {
+        return view('admin.laporan.peminjaman', [
+            'data' => Peminjaman::all()
+        ]);
+    }
+
+    public function bahan()
+    {
+        return view('admin.laporan.bahan', [
+            'data' => PenggunaanBahan::all()
+        ]);
+    }
+}
+
+LokasiController.php :
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\Lokasi;
+use Illuminate\Http\Request;
+
+class LokasiController extends Controller
+{
+    public function index()
+    {
+        return view('admin.lokasi.index', [
+            'lokasi' => Lokasi::with(['barang', 'bahan'])->get()
+        ]);
+    }
+
+    public function store(Request $request)
+    {
+        $foto = null;
+        if ($request->hasFile('foto_penanggung_jawab')) {
+            $foto = time() . '.' . $request->foto_penanggung_jawab->extension();
+            $request->foto_penanggung_jawab
+                ->move(public_path('uploads/penanggung_jawab_lokasi'), $foto);
+        }
+
+        Lokasi::create([
+            'nama' => $request->nama,
+            'penanggung_jawab' => $request->penanggung_jawab,
+            'foto_penanggung_jawab' => $foto,
+            'keterangan' => $request->keterangan,
+        ]);
+
+        return back()->with('success', 'Lokasi berhasil ditambahkan');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $lokasi = Lokasi::findOrFail($id);
+
+        if ($request->hasFile('foto_penanggung_jawab')) {
+            $foto = time() . '.' . $request->foto_penanggung_jawab->extension();
+            $request->foto_penanggung_jawab
+                ->move(public_path('uploads/penanggung_jawab_lokasi'), $foto);
+            $lokasi->foto_penanggung_jawab = $foto;
+        }
+
+        $lokasi->update($request->only('nama','penanggung_jawab','keterangan'));
+
+        return back()->with('success', 'Lokasi berhasil diupdate');
+    }
+
+    public function delete($id)
+    {
+        Lokasi::where('id', $id)->delete();
+        return back()->with('success', 'Lokasi dihapus');
+    }
+    public function show($id)
+    {
+        return response()->json(
+            \App\Models\Lokasi::with(['barang.kategori', 'bahan'])->findOrFail($id)
+        );
+    }
+
+}
+
+SiswaController.php
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\Siswa;
+use Illuminate\Http\Request;
+
+class SiswaController extends Controller
+{
+    public function index()
+    {
+        return view('admin.siswa.index', [
+            'siswa' => Siswa::all()
+        ]);
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->all();
+
+        // upload foto
+        if ($request->hasFile('foto')) {
+            $file = $request->file('foto');
+            $name = time().'_'.$file->getClientOriginalName();
+            $file->move(public_path('uploads/foto_siswa'), $name);
+            $data['foto'] = $name;
+        }
+
+        Siswa::create($data);
+        return redirect('/admin/siswa');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $siswa = Siswa::findOrFail($id);
+        $data = $request->all();
+
+        if ($request->hasFile('foto')) {
+            if ($siswa->foto && file_exists(public_path('uploads/foto_siswa/'.$siswa->foto))) {
+                unlink(public_path('uploads/foto_siswa/'.$siswa->foto));
+            }
+
+            $file = $request->file('foto');
+            $name = time().'_'.$file->getClientOriginalName();
+            $file->move(public_path('uploads/foto_siswa'), $name);
+            $data['foto'] = $name;
+        }
+
+        $siswa->update($data);
+        return redirect('/admin/siswa');
+    }
+
+    public function delete($id)
+    {
+        $siswa = Siswa::findOrFail($id);
+
+        if ($siswa->foto && file_exists(public_path('uploads/foto_siswa/'.$siswa->foto))) {
+            unlink(public_path('uploads/foto_siswa/'.$siswa->foto));
+        }
+
+        $siswa->delete();
+        return redirect('/admin/siswa');
+    }
+}
+
+
+
+struktur Controller (Guru) :
+
+DashboardController.php :
+
+<?php
+
+namespace App\Http\Controllers\Guru;
+
+use App\Http\Controllers\Controller;
+use App\Models\Peminjaman;
+
+class DashboardController extends Controller
+{
+    public function index()
+    {
+        return view('guru.dashboard', [
+            'peminjaman' => Peminjaman::where('status','pending')->count()
+        ]);
+    }
+}
+
+PeminjamanController.php :
+<?php
+
+namespace App\Http\Controllers\Guru;
+
+use App\Http\Controllers\Controller;
+use App\Models\Peminjaman;
+
+class PeminjamanController extends Controller
+{
+    public function index()
+    {
+        // Hanya ambil peminjaman yang peminjamnya guru ini tanggung jawabnya
+        $guruId = session('user_id');
+
+        $data = Peminjaman::where('status', 'pending')
+            ->where('setuju_role', 'guru') // pastikan role setuju adalah guru
+            ->orWhere(function($q) use ($guruId) {
+                $q->where('status', 'pending')
+                  ->where('setuju_id', $guruId);
+            })
+            ->get();
+
+        return view('guru.peminjaman.index', compact('data'));
+    }
+
+    public function detail($id)
+    {
+        $guruId = session('user_id');
+
+        $data = Peminjaman::where('id', $id)
+            ->where('setuju_role', 'guru')
+            ->where('setuju_id', $guruId)
+            ->firstOrFail();
+
+        return view('guru.peminjaman.detail', compact('data'));
+    }
+
+    public function setujui($id)
+    {
+        $guruId = session('user_id');
+
+        $peminjaman = Peminjaman::where('id', $id)
+            ->where('setuju_role', 'guru')
+            ->where('setuju_id', $guruId)
+            ->firstOrFail();
+
+        $peminjaman->update([
+            'status' => 'disetujui',
+            'setuju_id' => $guruId,
+            'setuju_role' => 'guru'
+        ]);
+
+        return back()->with('success', 'Peminjaman disetujui.');
+    }
+
+    public function tolak($id)
+    {
+        $guruId = session('user_id');
+
+        $peminjaman = Peminjaman::where('id', $id)
+            ->where('setuju_role', 'guru')
+            ->where('setuju_id', $guruId)
+            ->firstOrFail();
+
+        $peminjaman->update([
+            'status' => 'ditolak'
+        ]);
+
+        return back()->with('success', 'Peminjaman ditolak.');
+    }
+}
+
+PenggunaanBahanController.php :
+
+<?php
+
+namespace App\Http\Controllers\Guru;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\PenggunaanBahan;
+
+class PenggunaanBahanController extends Controller
+{
+    public function index()
+    {
+        return view('guru.bahan.index', [
+            'data' => PenggunaanBahan::all()
+        ]);
+    }
+
+    public function store(Request $request)
+    {
+        PenggunaanBahan::create($request->all());
+        return back();
+    }
+}
+
+
+
+
+
+
+struktur Controller (Siswa) :
+
+
+
+Controllers/Siswa/DashboardController.php :
+<?php
+namespace App\Http\Controllers\Siswa;
+use App\Http\Controllers\Controller;
+use App\Models\Peminjaman;
+class DashboardController extends Controller
+{
+    public function index()
+    {
+        return view('siswa.dashboard', [
+            'data' => Peminjaman::where('peminjam_id', session('user_id'))->get()
+        ]);
+    }
+}
+
+Controllers/Siswa/PeminjamanController.php :
+<?php
+
+namespace App\Http\Controllers\Siswa;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\Peminjaman;
+use App\Models\Barang;
+use App\Models\Bahan;
+
+class PeminjamanController extends Controller
+{
+    // Menampilkan semua peminjaman siswa
+    public function index()
+    {
+        return view('siswa.peminjaman.index', [
+            'data' => Peminjaman::where('peminjam_id', session('user_id'))->get(),
+            'barang' => Barang::where('stok','>',0)->get(),
+            'bahan' => Bahan::where('stok','>',0)->get(),
+        ]);
+    }
+
+    // Menyimpan peminjaman baru
+    public function store(Request $request)
+    {
+        $barang = Barang::findOrFail($request->barang_id);
+
+        // Pastikan stok cukup
+        if($request->jumlah > $barang->stok){
+            return back()->with('error', 'Jumlah melebihi stok yang tersedia!');
+        }
+
+        Peminjaman::create([
+            'kode' => uniqid('PJM-'),
+            'peminjam_id' => session('user_id'),
+            'peminjam_role' => 'siswa',
+            'barang_id' => $barang->id,
+            'barang_nama' => $barang->nama,
+            'jumlah' => $request->jumlah,
+            'tanggal_pinjam' => now(),
+            'harus_kembali' => now()->addDays(7),
+            'status' => 'pending',
+        ]);
+
+        return redirect('/siswa/peminjaman')->with('success', 'Peminjaman berhasil dibuat!');
+    }
+
+    // Detail peminjaman
+    public function detail($id)
+    {
+        return view('siswa.peminjaman.detail', [
+            'data' => Peminjaman::findOrFail($id)
+        ]);
+    }
+}
+
+Controllers/Siswa/ProfilController.php :
+<?php
+
+namespace App\Http\Controllers\Siswa;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\Siswa;
+
+class ProfilController extends Controller
+{
+    public function index()
+    {
+        return view('siswa.profil.index', [
+            'siswa' => Siswa::findOrFail(session('user_id'))
+        ]);
+    }
+
+    public function update(Request $request)
+    {
+        Siswa::findOrFail(session('user_id'))->update($request->all());
+        return back();
+    }
+}
+
+Controllers/Siswa/ScanController.php :
+<?php
+
+namespace App\Http\Controllers\Siswa;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\Barang;
+
+class ScanController extends Controller
+{
+    public function index()
+    {
+        return view('siswa.scan');
+    }
+
+    public function process(Request $request)
+    {
+        $barang = Barang::where('kode', $request->kode)->first();
+        return view('siswa.scan_result', compact('barang'));
+    }
+}

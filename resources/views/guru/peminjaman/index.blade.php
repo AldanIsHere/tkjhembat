@@ -1,0 +1,90 @@
+@extends('layouts.guru')
+@section('title', 'Daftar Peminjaman')
+
+@section('content')
+<div class="container-fluid">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="mb-0">Daftar Peminjaman Siswa</h4>
+    </div>
+
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    @endif
+
+    <div class="card border-1 shadow-sm shadow-lg">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped align-middle mb-0">
+                    <thead class="table-light">
+                        <tr class="text-center">
+                            <th>Kode</th>
+                            <th>Siswa</th>
+                            <th>Barang</th>
+                            <th>Jumlah</th>
+                            <th>Status</th>
+                            <th>Tanggal Pinjam</th>
+                            <th width="180">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($peminjaman as $p)
+                        <tr>
+                            <td class="text-center">{{ $p->kode }}</td>
+                            <td>{{ $p->siswa->nama ?? '-' }}</td>
+                            <td>{{ $p->barang_nama }}</td>
+                            <td class="text-center">{{ $p->jumlah }}</td>
+                            <td class="text-center">
+                                <span class="badge 
+                                    bg-{{ $p->status == 'pending' ? 'warning' : ($p->status == 'dipinjam' ? 'success' : 'danger') }}">
+                                    {{ ucfirst($p->status) }}
+                                </span>
+                            </td>
+                            <td class="text-center">{{ $p->tanggal_pinjam }}</td>
+                            <td class="text-center">
+
+                                <a href="{{ route('guru.peminjaman.show', $p->id) }}"
+                                   class="btn btn-info btn-sm mb-1">
+                                    Detail
+                                </a>
+
+                                @if($p->status == 'pending')
+                                    <form action="{{ route('guru.peminjaman.approve', $p->id) }}"
+                                          method="POST"
+                                          class="d-inline">
+                                        @csrf
+                                        <button type="submit" class="btn btn-success btn-sm mb-1">
+                                            Setujui
+                                        </button>
+                                    </form>
+
+                                    <form action="{{ route('guru.peminjaman.reject', $p->id) }}"
+                                          method="POST"
+                                          class="d-inline">
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger btn-sm mb-1">
+                                            Tolak
+                                        </button>
+                                    </form>
+                                @endif
+
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="7" class="text-center text-muted py-4">
+                                Tidak ada peminjaman untuk Anda
+                            </td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+@endsection
