@@ -1,11 +1,26 @@
 <?php
 /* untuk kolom maks hari, denda, perlu setuju, dan role setuju dikosongin nggak apa apa  */
+<<<<<<< HEAD
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Aturan;
 class AturanController extends Controller
 {
+=======
+
+
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\Aturan;
+
+class AturanController extends Controller
+{
+    
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
     public function index()
     {
         $aturan = Aturan::orderBy('id', 'DESC')->get();
@@ -22,6 +37,10 @@ class AturanController extends Controller
             'perlu_setuju' => 'nullable|boolean',
             'role_setuju' => 'nullable|string|max:50',
         ]);
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         Aturan::create([
             'nama' => $request->nama,
             'deskripsi' => $request->deskripsi,
@@ -31,6 +50,10 @@ class AturanController extends Controller
             'perlu_setuju' => $request->perlu_setuju,
             'role_setuju' => $request->role_setuju,
         ]);
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         return redirect()
             ->route('aturan.index')
             ->with('success', 'Aturan berhasil ditambahkan');
@@ -38,6 +61,10 @@ class AturanController extends Controller
     public function update(Request $request, $id)
     {
         $aturan = Aturan::findOrFail($id);
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         $request->validate([
             'nama' => 'required|string|max:191',
             'deskripsi' => 'nullable|string',
@@ -47,6 +74,10 @@ class AturanController extends Controller
             'perlu_setuju' => 'nullable|boolean',
             'role_setuju' => 'nullable|string|max:50',
         ]);
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         $aturan->update([
             'nama' => $request->nama,
             'deskripsi' => $request->deskripsi,
@@ -56,13 +87,25 @@ class AturanController extends Controller
             'perlu_setuju' => $request->perlu_setuju,
             'role_setuju' => $request->role_setuju,
         ]);
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         return redirect()
             ->route('aturan.index')
             ->with('success', 'Aturan berhasil diperbarui');
     }
+<<<<<<< HEAD
     public function destroy($id)
     {
         Aturan::findOrFail($id)->delete();
+=======
+
+    public function destroy($id)
+    {
+        Aturan::findOrFail($id)->delete();
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         return redirect()
             ->route('aturan.index')
             ->with('success', 'Aturan berhasil dihapus');

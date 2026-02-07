@@ -1,8 +1,16 @@
 @extends('layouts.siswa')
 @section('title', 'Daftar Bahan & Stok')
+<<<<<<< HEAD
 @section('content')
 <div class="container">
     <h2>Daftar Bahan Tersedia</h2>
+=======
+
+@section('content')
+<div class="container">
+    <h2>Daftar Bahan Tersedia</h2>
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
     <table class="table table-bordered">
         <thead>
             <tr>

@@ -12,6 +12,10 @@ untuk generate gambar qr untuk barang yang bukan sarpras juga pakai ibrary Simpl
 
  */
 namespace App\Http\Controllers\Admin;
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Barang;
@@ -33,15 +37,24 @@ class BarangController extends Controller
     private function extractKodeUnikFromQR($qrString)
     {
         $qrString = trim($qrString);
+<<<<<<< HEAD
         if (empty($qrString)) {
             return null;
         }
+=======
+        
+        if (empty($qrString)) {
+            return null;
+        }
+ 
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         if (preg_match('/kodeunik=([A-Za-z0-9.\-_]+)(?:\/|$|\s|&)/', $qrString, $matches)) {
             return $matches[1];
         }
         if (preg_match('/^([A-Za-z0-9.\-_]+)$/', $qrString, $matches)) {
             return $matches[1];
         }
+<<<<<<< HEAD
         if (preg_match('/\/([A-Za-z0-9.\-_]+)\/jenis=/', $qrString, $matches)) {
             return $matches[1];
         }
@@ -49,12 +62,29 @@ class BarangController extends Controller
         if (isset($parsedUrl['path'])) {
             $path = trim($parsedUrl['path'], '/');
             $segments = explode('/', $path);
+=======
+        
+        if (preg_match('/\/([A-Za-z0-9.\-_]+)\/jenis=/', $qrString, $matches)) {
+            return $matches[1];
+        }
+        
+        $parsedUrl = parse_url($qrString);
+        
+        if (isset($parsedUrl['path'])) {
+            $path = trim($parsedUrl['path'], '/');
+            $segments = explode('/', $path);
+            
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
             foreach ($segments as $segment) {
                 if (strpos($segment, 'kodeunik=') !== false) {
                     if (preg_match('/kodeunik=([A-Za-z0-9.\-_]+)/', $segment, $matches)) {
                         return $matches[1];
                     }
                 }
+<<<<<<< HEAD
+=======
+                
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                 if (preg_match('/^[A-Za-z0-9.\-_]+$/', $segment) && strlen($segment) >= 5) {
                     return $segment;
                 }
@@ -62,15 +92,27 @@ class BarangController extends Controller
         }
         if (isset($parsedUrl['query'])) {
             parse_str($parsedUrl['query'], $queryParams);
+<<<<<<< HEAD
             if (isset($queryParams['kodeunik'])) {
                 return $queryParams['kodeunik'];
             }
+=======
+            
+            if (isset($queryParams['kodeunik'])) {
+                return $queryParams['kodeunik'];
+            }
+            
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
             foreach ($queryParams as $value) {
                 if (preg_match('/^[A-Za-z0-9.\-_]+$/', $value) && strlen($value) >= 5) {
                     return $value;
                 }
             }
         }
+<<<<<<< HEAD
+=======
+        
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         return null;
     }
     private function processQRImage($imageFile)
@@ -162,9 +204,18 @@ class BarangController extends Controller
 
     public function tarikSarpras(Request $request)
     {
+<<<<<<< HEAD
         if (!$request->lokasi_id || !Lokasi::find($request->lokasi_id)) {
             return back()->with('error', 'Lokasi harus dipilih');
         }
+=======
+        // Validasi lokasi
+        if (!$request->lokasi_id || !Lokasi::find($request->lokasi_id)) {
+            return back()->with('error', 'Lokasi harus dipilih');
+        }
+        
+        // Ekstrak kode dari berbagai sumber
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         $kode = $this->extractKodeFromRequest($request);
         
         if (!$kode) {
@@ -181,6 +232,10 @@ class BarangController extends Controller
                 ' (Lokasi: ' . ($existing->lokasi->nama ?? '-') . ')'
             );
         }
+<<<<<<< HEAD
+=======
+        
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         $apiSarpras = ApiSarpras::where('aktif', 1)->first();
         if (!$apiSarpras) {
             return back()->with('error', 'API SARPRAS belum aktif. Hubungi administrator.');
@@ -221,18 +276,32 @@ class BarangController extends Controller
     {
         try {
             $apiUrl = rtrim($apiSarpras->base_url, '/') . '/inventarisasi-kib/by-kode-barang/' . urlencode($kode);
+<<<<<<< HEAD
+=======
+            
+            // Headers
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
             $headers = [];
             if ($apiSarpras->tipe_auth === 'bearer' && $apiSarpras->token) {
                 $headers['Authorization'] = 'Bearer ' . $apiSarpras->token;
             } elseif ($apiSarpras->tipe_auth === 'api_key' && $apiSarpras->api_key) {
                 $headers['X-API-KEY'] = $apiSarpras->api_key;
             }
+<<<<<<< HEAD
+=======
+            
+            // Request ke API
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $apiUrl);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_TIMEOUT, 30);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+<<<<<<< HEAD
+=======
+            
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
             if (!empty($headers)) {
                 $headerArray = [];
                 foreach ($headers as $key => $value) {
@@ -240,14 +309,24 @@ class BarangController extends Controller
                 }
                 curl_setopt($ch, CURLOPT_HTTPHEADER, $headerArray);
             }
+<<<<<<< HEAD
+=======
+            
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
             $response = curl_exec($ch);
             $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
             $error = curl_error($ch);
             curl_close($ch);
+<<<<<<< HEAD
+=======
+            
+            // Handle response code
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
             if ($httpCode !== 200) {
                 $message = $this->getErrorMessageFromHttpCode($httpCode, $error, $kode);
                 return ['success' => false, 'message' => $message];
             }
+<<<<<<< HEAD
             $responseData = json_decode($response, true);
             if (!$responseData || !isset($responseData['success']) || !$responseData['success']) {
                 return ['success' => false, 'message' => 'Response tidak valid dari SARPRAS'];
@@ -263,6 +342,33 @@ class BarangController extends Controller
                 return ['success' => false, 'message' => 'Data namaBarang tidak ditemukan dalam response'];
             }
             return ['success' => true, 'data' => $barangData]; 
+=======
+            
+            $responseData = json_decode($response, true);
+            
+            // Validasi response
+            if (!$responseData || !isset($responseData['success']) || !$responseData['success']) {
+                return ['success' => false, 'message' => 'Response tidak valid dari SARPRAS'];
+            }
+            
+            if (!isset($responseData['data']) || empty($responseData['data'])) {
+                return ['success' => false, 'message' => 'Data barang tidak ditemukan di response SARPRAS'];
+            }
+            
+            $barangData = $responseData['data'];
+            
+            // Validasi data yang diterima
+            if (!isset($barangData['kodeUnik']) || empty($barangData['kodeUnik'])) {
+                return ['success' => false, 'message' => 'Data kodeUnik tidak ditemukan dalam response'];
+            }
+            
+            if (!isset($barangData['namaBarang']) || empty($barangData['namaBarang'])) {
+                return ['success' => false, 'message' => 'Data namaBarang tidak ditemukan dalam response'];
+            }
+            
+            return ['success' => true, 'data' => $barangData];
+            
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         } catch (\Exception $e) {
             return ['success' => false, 'message' => 'Terjadi kesalahan: ' . $e->getMessage()];
         }
@@ -299,7 +405,12 @@ class BarangController extends Controller
         $barang->keterangan = 'Barang ditarik dari SARPRAS Pusat - ' . date('d/m/Y H:i');
         $barang->tipe = 'sarpras';
         $barang->foto = $barangData['foto'] ?? null;
+<<<<<<< HEAD
         $barang->qr_code = $barangData['qrCode'] ?? null;    
+=======
+        $barang->qr_code = $barangData['qrCode'] ?? null; 
+        
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         $barang->sarpras_id = $barangData['id'] ?? null;
         $barang->sarpras_sync = 1;
         $barang->sarpras_last_sync = date('Y-m-d H:i:s');
@@ -315,7 +426,13 @@ class BarangController extends Controller
                 'message' => 'QR string kosong'
             ]);
         }
+<<<<<<< HEAD
         $kode = $this->extractKodeUnikFromQR($request->qr_string);
+=======
+        
+        $kode = $this->extractKodeUnikFromQR($request->qr_string);
+        
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         if (!$kode) {
             return response()->json([
                 'success' => false,
@@ -323,6 +440,10 @@ class BarangController extends Controller
             ]);
         }
         $existing = Barang::where('kode', $kode)->first();
+<<<<<<< HEAD
+=======
+        
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         if ($existing) {
             return response()->json([
                 'success' => true,
@@ -336,6 +457,10 @@ class BarangController extends Controller
                 ]
             ]);
         }
+<<<<<<< HEAD
+=======
+        
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         return response()->json([
             'success' => true,
             'kode' => $kode,
@@ -352,6 +477,10 @@ class BarangController extends Controller
             ]);
         }
         $imageResult = $this->processQRImage($request->file('qr_image'));
+<<<<<<< HEAD
+=======
+        
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         if (!$imageResult['success']) {
             return response()->json([
                 'success' => false,
@@ -368,6 +497,10 @@ class BarangController extends Controller
             ]);
         }
         $existing = Barang::where('kode', $kode)->first();
+<<<<<<< HEAD
+=======
+        
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         if ($existing) {
             return response()->json([
                 'success' => true,
@@ -383,6 +516,10 @@ class BarangController extends Controller
                 ]
             ]);
         }
+<<<<<<< HEAD
+=======
+        
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         return response()->json([
             'success' => true,
             'kode' => $kode,
@@ -418,6 +555,7 @@ class BarangController extends Controller
             'tipe'        => 'lokal',
             'qr_code'     => null
         ]);
+<<<<<<< HEAD
         return back()->with('success', 'Barang lokal berhasil ditambahkan');
     }
     public function update(Request $request, $id)
@@ -426,6 +564,20 @@ class BarangController extends Controller
         if (!$barang) {
             return back()->with('error', 'Barang tidak ditemukan');
         }
+=======
+        
+        return back()->with('success', 'Barang lokal berhasil ditambahkan');
+    }
+    
+    public function update(Request $request, $id)
+    {
+        $barang = Barang::find($id);
+        
+        if (!$barang) {
+            return back()->with('error', 'Barang tidak ditemukan');
+        }
+        
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         $validated = $request->validate([
             'nama' => 'required|string|max:255',
             'kode' => 'required|string|max:50|unique:barang,kode,' . $id,
@@ -448,21 +600,39 @@ class BarangController extends Controller
         if ($barang->tipe === 'lokal' && $request->foto) {
             $barang->foto = $request->foto;
         }
+<<<<<<< HEAD
         $barang->save();
         return back()->with('success', 'Barang berhasil diperbarui');
     }
     public function destroy($id)
     {
         $barang = Barang::find($id);
+=======
+        
+        $barang->save();
+        
+        return back()->with('success', 'Barang berhasil diperbarui');
+    }
+    
+    public function destroy($id)
+    {
+        $barang = Barang::find($id);
+        
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         if (!$barang) {
             return back()->with('error', 'Barang tidak ditemukan');
         }
         $barang->delete();
+<<<<<<< HEAD
+=======
+        
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         return back()->with('success', 'Barang berhasil dihapus');
     }
     public function syncSarpras($id)
     {
         $barang = Barang::find($id);
+<<<<<<< HEAD
         if (!$barang) {
             return back()->with('error', 'Barang tidak ditemukan');
         }
@@ -473,6 +643,23 @@ class BarangController extends Controller
         if (!$apiSarpras) {
             return back()->with('error', 'API SARPRAS tidak aktif');
         }
+=======
+        
+        if (!$barang) {
+            return back()->with('error', 'Barang tidak ditemukan');
+        }
+        
+        if ($barang->tipe !== 'sarpras') {
+            return back()->with('error', 'Hanya barang dari SARPRAS yang bisa disinkronisasi');
+        }
+        
+        $apiSarpras = ApiSarpras::where('aktif', 1)->first();
+        
+        if (!$apiSarpras) {
+            return back()->with('error', 'API SARPRAS tidak aktif');
+        }
+        
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         try {
             $apiUrl = rtrim($apiSarpras->base_url, '/') . '/inventarisasi-kib/by-kode-barang/' . $barang->kode;
             $headers = [];
@@ -486,9 +673,17 @@ class BarangController extends Controller
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_TIMEOUT, 15);
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+<<<<<<< HEAD
             $response = curl_exec($ch);
             $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
             curl_close($ch);
+=======
+            
+            $response = curl_exec($ch);
+            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            curl_close($ch);
+            
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
             if ($httpCode === 200) {
                 $responseData = json_decode($response, true);
                 
@@ -513,19 +708,37 @@ class BarangController extends Controller
     public function generateQr($id)
     {
         $barang = Barang::find($id);
+<<<<<<< HEAD
         if (!$barang) {
             return back()->with('error', 'Barang tidak ditemukan');
         }
+=======
+        
+        if (!$barang) {
+            return back()->with('error', 'Barang tidak ditemukan');
+        }
+        
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         if ($barang->qr_code) {
             return back()->with('warning', 'QR sudah ada');
         }
         $qrContent = $barang->kode;
+<<<<<<< HEAD
+=======
+        
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         $fileName = 'qr_' . $barang->kode . '_' . time() . '.svg';
         $qrDir = public_path('uploads/qr_barang');
         if (!is_dir($qrDir)) {
             mkdir($qrDir, 0777, true);
         }
+<<<<<<< HEAD
         $filePath = $qrDir . '/' . $fileName;
+=======
+        
+        $filePath = $qrDir . '/' . $fileName;
+        
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         try {
             $qrCode = QrCode::format('svg')
                 ->size(300)
@@ -542,6 +755,10 @@ class BarangController extends Controller
             return back()->with('error', 'Gagal membuat QR Code: ' . $e->getMessage());
         }
     }
+<<<<<<< HEAD
+=======
+    
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
     public function scan()
     {
         $lokasi = Lokasi::orderBy('nama')->get();
@@ -550,15 +767,29 @@ class BarangController extends Controller
     public function testApiConnection()
     {
         $apiSarpras = ApiSarpras::where('aktif', 1)->first();
+<<<<<<< HEAD
+=======
+        
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         if (!$apiSarpras) {
             return response()->json([
                 'success' => false,
                 'message' => 'API SARPRAS tidak aktif'
             ]);
         }
+<<<<<<< HEAD
         try { 
             $testUrl = rtrim($apiSarpras->base_url, '/') . '/';  
             $startTime = microtime(true);  
+=======
+        
+        try {
+           
+            $testUrl = rtrim($apiSarpras->base_url, '/') . '/';
+            
+            $startTime = microtime(true);
+            
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $testUrl);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -566,12 +797,24 @@ class BarangController extends Controller
             curl_setopt($ch, CURLOPT_NOBODY, true);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+<<<<<<< HEAD
             $response = curl_exec($ch);
             $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
             $totalTime = curl_getinfo($ch, CURLINFO_TOTAL_TIME) * 1000; 
             curl_close($ch);
             $endTime = microtime(true);
             $responseTime = round(($endTime - $startTime) * 1000, 2);   
+=======
+            
+            $response = curl_exec($ch);
+            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            $totalTime = curl_getinfo($ch, CURLINFO_TOTAL_TIME) * 1000; // dalam ms
+            curl_close($ch);
+            
+            $endTime = microtime(true);
+            $responseTime = round(($endTime - $startTime) * 1000, 2); // dalam ms
+            
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
             if ($httpCode >= 200 && $httpCode < 400) {
                 return response()->json([
                     'success' => true,
@@ -605,8 +848,15 @@ public function validateWebcamQR(Request $request)
     $request->validate([
         'qr_data' => 'required|string',
     ]);
+<<<<<<< HEAD
     $qrData = $request->qr_data;
     $kode = $this->extractKodeUnikFromQR($qrData);
+=======
+    
+    $qrData = $request->qr_data;
+    $kode = $this->extractKodeUnikFromQR($qrData);
+    
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
     if (!$kode) {
         return response()->json([
             'success' => false,
@@ -615,6 +865,10 @@ public function validateWebcamQR(Request $request)
         ]);
     }
     $existing = Barang::where('kode', $kode)->first();
+<<<<<<< HEAD
+=======
+    
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
     if ($existing) {
         return response()->json([
             'success' => true,
@@ -632,12 +886,20 @@ public function validateWebcamQR(Request $request)
     }
     $apiSarpras = ApiSarpras::where('aktif', 1)->first();
     $sarprasData = null;
+<<<<<<< HEAD
+=======
+    
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
     if ($apiSarpras) {
         $apiResult = $this->fetchFromSarprasAPI($apiSarpras, $kode);
         if ($apiResult['success']) {
             $sarprasData = $apiResult['data'];
         }
     }
+<<<<<<< HEAD
+=======
+    
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
     return response()->json([
         'success' => true,
         'kode' => $kode,
@@ -646,4 +908,8 @@ public function validateWebcamQR(Request $request)
         'message' => 'Kode valid: ' . $kode . ($sarprasData ? ' (Ditemukan di SARPRAS)' : ' (Tidak ditemukan di SARPRAS)')
     ]);
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 }

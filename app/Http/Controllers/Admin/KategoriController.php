@@ -1,8 +1,18 @@
 <?php
+<<<<<<< HEAD
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Kategori;
+=======
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\Kategori;
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 class KategoriController extends Controller
 {
     public function index()

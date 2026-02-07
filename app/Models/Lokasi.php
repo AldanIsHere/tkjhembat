@@ -1,6 +1,14 @@
 <?php
+<<<<<<< HEAD
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
+=======
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 class Lokasi extends Model
 {
     // Model untuk tabel `lokasi`

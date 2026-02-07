@@ -1,10 +1,18 @@
 @extends('layouts.admin')
 @section('title', 'Manajemen Lokasi')
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 @section('content')
 @php
 use App\Models\Barang;
 use App\Models\Bahan;
 @endphp
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h4 class="mb-0">
@@ -25,6 +33,10 @@ use App\Models\Bahan;
         @foreach($lokasi as $l)
         <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
             <div class="card h-100 shadow-sm shadow-lg border-1">
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                 <div class="card-body text-center">
                     <img src="{{ $l->foto_penanggung_jawab
                         ? asset('uploads/foto_penanggung_jawab/'.$l->foto_penanggung_jawab)
@@ -34,13 +46,23 @@ use App\Models\Bahan;
                         style="object-fit:cover;cursor:pointer"
                         data-bs-toggle="modal"
                         data-bs-target="#modalFoto{{ $l->id }}">
+<<<<<<< HEAD
                     <h6 class="fw-semibold">{{ $l->nama }}</h6>
+=======
+
+                    <h6 class="fw-semibold">{{ $l->nama }}</h6>
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                     @if($l->penanggung_jawab)
                     <small class="text-muted">
                         <i class="bi bi-person-badge"></i> {{ $l->penanggung_jawab }}
                     </small>
                     @endif
                 </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                 <div class="card-footer bg-white text-center">
                     <div class="d-flex justify-content-center gap-2">
                         <button class="btn btn-outline-primary btn-sm"
@@ -49,12 +71,20 @@ use App\Models\Bahan;
                             title="Lihat Isi Lokasi">
                             <i class="bi bi-box-seam"></i>
                         </button>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                         <button class="btn btn-outline-warning btn-sm"
                             data-bs-toggle="modal"
                             data-bs-target="#modalEdit{{ $l->id }}"
                             title="Edit">
                             <i class="bi bi-pencil"></i>
                         </button>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                         <form action="{{ route('lokasi.destroy',$l->id) }}" method="POST"
                             onsubmit="return confirm('Hapus lokasi ini?')">
                             @csrf
@@ -76,9 +106,17 @@ use App\Models\Bahan;
 $barang = Barang::where('lokasi_id', $l->id)->get();
 $bahan  = Bahan::where('lokasi_id', $l->id)->get();
 @endphp
+<<<<<<< HEAD
 <div class="modal fade" id="modalIsi{{ $l->id }}">
     <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content border-0 shadow">
+=======
+
+<div class="modal fade" id="modalIsi{{ $l->id }}">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content border-0 shadow">
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
             <div class="modal-header bg-light">
                 <h5 class="modal-title">
                     <i class="bi bi-archive me-2"></i>
@@ -86,7 +124,13 @@ $bahan  = Bahan::where('lokasi_id', $l->id)->get();
                 </h5>
                 <button class="btn-close" data-bs-dismiss="modal"></button>
             </div>
+<<<<<<< HEAD
             <div class="modal-body">
+=======
+
+            <div class="modal-body">
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                 <ul class="nav nav-tabs mb-3">
                     <li class="nav-item">
                         <button class="nav-link active"
@@ -103,6 +147,10 @@ $bahan  = Bahan::where('lokasi_id', $l->id)->get();
                         </button>
                     </li>
                 </ul>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="barang{{ $l->id }}">
                         <table class="table table-bordered table-sm">
@@ -168,8 +216,16 @@ $bahan  = Bahan::where('lokasi_id', $l->id)->get();
                             </tbody>
                         </table>
                     </div>
+<<<<<<< HEAD
                 </div>
             </div>
+=======
+
+                </div>
+
+            </div>
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
             <div class="modal-footer">
                 <button class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
                     Tutup
@@ -250,6 +306,10 @@ $bahan  = Bahan::where('lokasi_id', $l->id)->get();
                         <input type="file" name="foto_penanggung_jawab" class="form-control">
                     </div>
                 </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                 <div class="modal-footer">
                     <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                     <button class="btn btn-warning">Update</button>
@@ -258,6 +318,10 @@ $bahan  = Bahan::where('lokasi_id', $l->id)->get();
         </div>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 <div class="modal fade" id="modalFoto{{ $l->id }}">
     <div class="modal-dialog modal-sm modal-dialog-centered">
         <div class="modal-content border-0 shadow">
@@ -275,5 +339,9 @@ $bahan  = Bahan::where('lokasi_id', $l->id)->get();
         </div>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 @endforeach
 @endsection

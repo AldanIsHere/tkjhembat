@@ -1,5 +1,9 @@
 @extends('layouts.siswa')
 @section('title', 'Profil Siswa')
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 @section('content')
 <div class="container-fluid">
     <h4 class="mb-3">Profil Siswa</h4>
@@ -31,14 +35,26 @@
                                 <label class="form-label">Nama</label>
                                 <input type="text" name="nama" class="form-control" value="{{ $user->nama }}" required>
                             </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">NIS</label>
                                 <input type="text" class="form-control" value="{{ $user->nis }}" readonly>
                             </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Email</label>
                                 <input type="email" name="email" class="form-control" value="{{ $user->email }}">
                             </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Telepon</label>
                                 <input type="text" name="telepon" class="form-control" value="{{ $user->telepon }}">
@@ -47,6 +63,10 @@
                                 <label class="form-label">Kelas</label>
                                 <input type="text" name="kelas" class="form-control" value="{{ $user->kelas }}">
                             </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Jurusan</label>
                                 <input type="text" name="jurusan" class="form-control" value="{{ $user->jurusan }}">

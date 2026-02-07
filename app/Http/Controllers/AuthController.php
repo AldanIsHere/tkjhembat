@@ -1,9 +1,19 @@
 <?php
+<<<<<<< HEAD
 namespace App\Http\Controllers;
+=======
+
+namespace App\Http\Controllers;
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 use Illuminate\Http\Request;
 use App\Models\Siswa;
 use App\Models\Guru;
 use App\Models\Admin;
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 class AuthController extends Controller
 {
     public function loginForm()

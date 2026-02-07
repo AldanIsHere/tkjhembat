@@ -3,6 +3,10 @@
  untuk disini si dashboard pakai syntax bawaan laravel, yaitu Count() untuk menghitung total data yang dimiliki sebuah tabel berdasarkan model yang ada.
  */
 namespace App\Http\Controllers\Admin;
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Barang;

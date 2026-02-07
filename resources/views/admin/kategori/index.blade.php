@@ -1,5 +1,9 @@
 @extends('layouts.admin')
 @section('title', 'Manajemen Kategori')
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 @section('content')
 <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -80,10 +84,18 @@
 <div class="modal fade" id="modalTambah" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
             <div class="modal-header">
                 <h5 class="modal-title">Tambah Kategori</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
             <form action="{{ route('kategori.store') }}" method="POST">
                 @csrf
                 <div class="modal-body">
@@ -97,6 +109,10 @@
                         <textarea name="deskripsi" class="form-control" rows="3"></textarea>
                     </div>
                 </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Batal
@@ -106,6 +122,10 @@
                     </button>
                 </div>
             </form>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         </div>
     </div>
 </div>
@@ -113,13 +133,25 @@
 <div class="modal fade" id="modalEdit{{ $k->id }}" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
             <div class="modal-header">
                 <h5 class="modal-title">Edit Kategori</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
+<<<<<<< HEAD
             <form action="{{ route('kategori.update', $k->id) }}" method="POST">
                 @csrf
                 @method('PUT')
+=======
+
+            <form action="{{ route('kategori.update', $k->id) }}" method="POST">
+                @csrf
+                @method('PUT')
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                 <div class="modal-body">
                     <div class="mb-3">
                         <label class="form-label">Nama Kategori</label>
@@ -130,6 +162,10 @@
                             value="{{ $k->nama }}"
                             required>
                     </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                     <div class="mb-3">
                         <label class="form-label">Deskripsi</label>
                         <textarea
@@ -138,6 +174,10 @@
                             rows="3">{{ $k->deskripsi }}</textarea>
                     </div>
                 </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Batal

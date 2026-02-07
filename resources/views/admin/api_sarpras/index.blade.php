@@ -1,5 +1,9 @@
 @extends('layouts.admin')
 @section('title', 'API Sarpras')
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 @section('content')
 <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -80,26 +84,50 @@
                     <button class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body row g-3">
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                     <div class="col-md-6">
                         <label class="form-label">Nama *</label>
                         <input type="text" name="nama" class="form-control" required>
                     </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                     <div class="col-md-6">
                         <label class="form-label">Base URL *</label>
                         <input type="text" name="base_url" class="form-control" required>
                     </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                     <div class="col-md-4">
                         <label class="form-label">API Key</label>
                         <input type="text" name="api_key" class="form-control">
                     </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                     <div class="col-md-4">
                         <label class="form-label">API Secret</label>
                         <input type="text" name="api_secret" class="form-control">
                     </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                     <div class="col-md-4">
                         <label class="form-label">Token</label>
                         <input type="text" name="token" class="form-control">
                     </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                     <div class="col-md-4">
                         <label class="form-label">Tipe Auth *</label>
                         <select name="tipe_auth" class="form-select" required>
@@ -108,6 +136,10 @@
                             <option value="basic">Basic</option>
                         </select>
                     </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                     <div class="col-md-4">
                         <label class="form-label">Status</label>
                         <select name="aktif" class="form-select">
@@ -115,10 +147,18 @@
                             <option value="0">Nonaktif</option>
                         </select>
                     </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                     <div class="col-md-12">
                         <label class="form-label">Keterangan</label>
                         <textarea name="keterangan" class="form-control" rows="2"></textarea>
                     </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
@@ -139,26 +179,50 @@
                     <button class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body row g-3">
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                     <div class="col-md-6">
                         <label class="form-label">Nama</label>
                         <input name="nama" class="form-control" value="{{ $a->nama }}">
                     </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                     <div class="col-md-6">
                         <label class="form-label">Base URL</label>
                         <input name="base_url" class="form-control" value="{{ $a->base_url }}">
                     </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                     <div class="col-md-4">
                         <label class="form-label">API Key</label>
                         <input name="api_key" class="form-control" value="{{ $a->api_key }}">
                     </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                     <div class="col-md-4">
                         <label class="form-label">API Secret</label>
                         <input name="api_secret" class="form-control" value="{{ $a->api_secret }}">
                     </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                     <div class="col-md-4">
                         <label class="form-label">Token</label>
                         <input name="token" class="form-control" value="{{ $a->token }}">
                     </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                     <div class="col-md-4">
                         <label class="form-label">Tipe Auth</label>
                         <select name="tipe_auth" class="form-select">
@@ -167,6 +231,10 @@
                             <option value="basic" {{ $a->tipe_auth=='basic'?'selected':'' }}>Basic</option>
                         </select>
                     </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                     <div class="col-md-4">
                         <label class="form-label">Status</label>
                         <select name="aktif" class="form-select">
@@ -174,10 +242,18 @@
                             <option value="0" {{ !$a->aktif?'selected':'' }}>Nonaktif</option>
                         </select>
                     </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                     <div class="col-md-12">
                         <label class="form-label">Keterangan</label>
                         <textarea name="keterangan" class="form-control">{{ $a->keterangan }}</textarea>
                     </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>

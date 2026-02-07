@@ -4,6 +4,10 @@
 @section('content')
 <div class="container">
     <h4 class="mb-3">Form Penggunaan Bahan</h4>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
     <form action="{{ route('siswa.penggunaan_bahan.store') }}" method="POST">
         @csrf
         <div class="mb-3">
@@ -38,6 +42,10 @@
             <label class="form-label">Keterangan</label>
             <textarea name="keterangan" class="form-control" rows="3"></textarea>
         </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         <button class="btn btn-success">
             <i class="bi bi-check-circle"></i> Simpan
         </button>

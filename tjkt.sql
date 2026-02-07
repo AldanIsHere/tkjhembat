@@ -3,7 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
+<<<<<<< HEAD
 -- Generation Time: Feb 06, 2026 at 06:27 PM
+=======
+-- Generation Time: Feb 01, 2026 at 08:42 PM
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.4.16
 
@@ -164,7 +168,11 @@ INSERT INTO `barang` (`id`, `kode`, `nama`, `spesifikasi`, `merk`, `kategori_id`
 (7, 'LAPTO-6202', 'Laptop', 'Laptop Asus 16gb', 'Asus', 3, 10, 'unit', 'baik', 2, NULL, NULL, NULL, 'uploads/qr_barang/qr-LAPTO-6202.svg', NULL, NULL, NULL, '2026-01-22 08:37:36', '2026-01-22 23:08:56'),
 (8, 'KOMPU-7765', 'Komputer Dell', 'Komputer Dell 32gb', 'Dell', 3, 15, 'unit', 'baik', 2, NULL, NULL, NULL, 'uploads/qr_barang/qr-KOMPU-7765.svg', NULL, NULL, NULL, '2026-01-22 09:03:52', '2026-01-22 09:31:43'),
 (9, 'LAPTO-8422', 'Laptop Asus', 'Laptop Asus 48gb', 'Asus', 3, 20, 'unit', 'baik', 3, NULL, NULL, NULL, 'uploads/qr_barang/qr-LAPTO-8422.svg', NULL, NULL, NULL, '2026-01-22 10:14:00', '2026-01-22 10:14:02'),
+<<<<<<< HEAD
 (17, '1.01.000021', 'Proyektor', 'test', 'Epson X500', NULL, 1, 'unit', 'baik', 3, 'Barang ditarik dari SARPRAS Pusat - 30/01/2026 15:01', 'sarpras', NULL, 'https://minio-api.aryajaka.site/sapras-app/qrcodes/1.01.000021.png', NULL, 1, '2026-01-30 08:01:06', '2026-01-30 08:01:06', '2026-02-06 10:18:55');
+=======
+(17, '1.01.000021', 'Proyektor', 'test', 'Epson X500', NULL, 1, 'unit', 'baik', 3, 'Barang ditarik dari SARPRAS Pusat - 30/01/2026 15:01', 'sarpras', NULL, 'https://minio-api.aryajaka.site/sapras-app/qrcodes/1.01.000021.png', NULL, 1, '2026-01-30 08:01:06', '2026-01-30 08:01:06', '2026-01-30 08:01:06');
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 
 -- --------------------------------------------------------
 
@@ -306,11 +314,15 @@ INSERT INTO `peminjaman` (`id`, `kode`, `peminjam_id`, `peminjam_role`, `setuju_
 (15, 'PMJ-1769098846', 1, 'siswa', 2, 'guru', 7, 'Laptop', 1, '2026-01-22', '2026-01-22', '2026-01-22', 'dikembalikan', NULL, NULL, 0.00, 'Baik', 'Baik', 'uploads/qr_verifikasi/PMJ-1769098846-7466.svg', '7466', '2026-01-22 09:20:49', NULL, NULL, NULL, NULL, 'sss', '2026-01-22 09:20:46', '2026-01-22 09:23:18'),
 (16, 'PMJ-1769099055', 2, 'siswa', 2, 'guru', 8, 'Komputer Dell', 1, '2026-01-22', '2026-01-23', '2026-01-23', 'dikembalikan', NULL, NULL, 0.00, 'Baik', 'Baik', 'uploads/qr_verifikasi/PMJ-1769099055-9286.svg', '9286', '2026-01-22 09:24:18', NULL, NULL, NULL, NULL, 'sssss', '2026-01-22 09:24:15', '2026-01-22 09:25:07'),
 (17, 'PMJ-1769148235', 1, 'siswa', 1, 'guru', 7, 'Laptop', 1, '2026-01-23', '2026-01-24', '2026-01-24', 'dikembalikan', NULL, NULL, 0.00, 'Baik', 'Baik syekali', 'uploads/qr_verifikasi/PMJ-1769148234-5181.svg', '5181', '2026-01-22 23:04:39', NULL, NULL, NULL, NULL, 'sssss', '2026-01-22 23:03:55', '2026-01-22 23:08:56'),
+<<<<<<< HEAD
 (18, 'PMJ-1769148834', 1, 'siswa', 1, 'guru', 7, 'Laptop', 1, '2026-01-23', '2026-01-24', '2026-01-24', 'ditolak', NULL, NULL, 0.00, 'Baik', NULL, 'uploads/qr_verifikasi/PMJ-1769148834-5256.svg', '5256', '2026-01-23 06:53:34', NULL, NULL, NULL, NULL, 'sasdas', '2026-01-22 23:13:54', '2026-01-23 06:53:55'),
 (19, 'PMJ-1770213013', 1, 'siswa', 1, 'guru', 17, 'Proyektor', 1, '2026-02-04', '2026-02-06', '2026-02-06', 'ditolak', NULL, NULL, 0.00, 'Baik', NULL, 'undefined/kodeunik=1.01.000021/jenis=barang', '6496', '2026-02-04 10:25:57', NULL, NULL, NULL, NULL, 'fytui', '2026-02-04 06:50:13', '2026-02-04 10:26:28'),
 (20, 'PMJ-1770214365', 1, 'siswa', 1, 'guru', 17, 'Proyektor', 1, '2026-02-04', '2026-02-06', '2026-02-06', 'ditolak', NULL, NULL, 0.00, 'Baik', NULL, 'undefined/kodeunik=1.01.000021/jenis=barang', '3068', '2026-02-04 10:20:35', NULL, NULL, NULL, NULL, 'fytui', '2026-02-04 07:12:45', '2026-02-04 10:26:26'),
 (21, 'PMJ-1770394625', 1, 'siswa', 2, 'guru', 17, 'Proyektor', 1, '2026-02-06', '2026-02-06', '2026-02-13', 'dikembalikan', NULL, NULL, 0.00, 'Baik', 'Baik', 'undefined/kodeunik=1.01.000021/jenis=barang', '2912', '2026-02-06 09:20:34', NULL, NULL, NULL, NULL, 'sds', '2026-02-06 09:17:05', '2026-02-06 09:28:28'),
 (22, 'PMJ-1770397608', 1, 'siswa', 1, 'guru', 17, 'Proyektor', 1, '2026-02-06', '2026-02-06', '2026-02-13', 'dikembalikan', NULL, NULL, 0.00, 'Baik', 'Baik', 'undefined/kodeunik=1.01.000021/jenis=barang', '1381', '2026-02-06 10:07:01', NULL, NULL, NULL, NULL, 'asdasd', '2026-02-06 10:06:48', '2026-02-06 10:18:55');
+=======
+(18, 'PMJ-1769148834', 1, 'siswa', 1, 'guru', 7, 'Laptop', 1, '2026-01-23', '2026-01-24', '2026-01-24', 'ditolak', NULL, NULL, 0.00, 'Baik', NULL, 'uploads/qr_verifikasi/PMJ-1769148834-5256.svg', '5256', '2026-01-23 06:53:34', NULL, NULL, NULL, NULL, 'sasdas', '2026-01-22 23:13:54', '2026-01-23 06:53:55');
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 
 -- --------------------------------------------------------
 
@@ -505,7 +517,11 @@ ALTER TABLE `lokasi`
 -- AUTO_INCREMENT for table `peminjaman`
 --
 ALTER TABLE `peminjaman`
+<<<<<<< HEAD
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+=======
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 
 --
 -- AUTO_INCREMENT for table `penggunaan_bahan`

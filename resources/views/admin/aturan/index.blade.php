@@ -1,8 +1,16 @@
 @extends('layouts.admin')
 @section('title', 'Manajemen Aturan')
+<<<<<<< HEAD
 @php
     $roleOptions = ['admin' => 'Admin', 'guru' => 'Guru', 'kepsek' => 'Kepala Sekolah'];
 @endphp
+=======
+
+@php
+    $roleOptions = ['admin' => 'Admin', 'guru' => 'Guru', 'kepsek' => 'Kepala Sekolah'];
+@endphp
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 @section('content')
 <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -106,6 +114,10 @@
                 <h5 class="modal-title">Tambah Aturan</h5>
                 <button class="btn-close" data-bs-dismiss="modal"></button>
             </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
             <form method="POST" action="{{ route('aturan.store') }}">
                 @csrf
                 <div class="modal-body">
@@ -132,6 +144,10 @@
                             <label class="form-label">Denda / Hari</label>
                             <input type="number" name="denda_hari" class="form-control" min="0">
                         </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                         <div class="col-md-6 mb-3">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="perlu_setuju" id="perluSetuju"
@@ -142,6 +158,10 @@
                                 </label>
                             </div>
                         </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                         <div class="col-md-6 mb-3 d-none" id="roleSetuju">
                             <label class="form-label">Role Persetujuan</label>
                             <select name="role_setuju" class="form-select">
@@ -150,17 +170,29 @@
                                 @endforeach
                             </select>
                         </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                         <div class="col-12 mb-3">
                             <label class="form-label">Deskripsi</label>
                             <textarea name="deskripsi" class="form-control" rows="3"></textarea>
                         </div>
                     </div>
                 </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                 <div class="modal-footer">
                     <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                     <button class="btn btn-primary">Simpan</button>
                 </div>
             </form>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         </div>
     </div>
 </div>
@@ -168,19 +200,35 @@
 <div class="modal fade" id="modalEdit{{ $a->id }}">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
             <div class="modal-header">
                 <h5 class="modal-title">Edit Aturan</h5>
                 <button class="btn-close" data-bs-dismiss="modal"></button>
             </div>
+<<<<<<< HEAD
             <form method="POST" action="{{ route('aturan.update', $a->id) }}">
                 @csrf
                 @method('PUT')
+=======
+
+            <form method="POST" action="{{ route('aturan.update', $a->id) }}">
+                @csrf
+                @method('PUT')
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Nama Aturan</label>
                             <input type="text" name="nama" value="{{ $a->nama }}" class="form-control" required>
                         </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Status</label>
                             <select name="aktif" class="form-select">
@@ -188,14 +236,26 @@
                                 <option value="0" {{ !$a->aktif ? 'selected' : '' }}>Nonaktif</option>
                             </select>
                         </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Maks Hari</label>
                             <input type="number" name="maks_hari" value="{{ $a->maks_hari }}" class="form-control">
                         </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Denda / Hari</label>
                             <input type="number" name="denda_hari" value="{{ $a->denda_hari }}" class="form-control">
                         </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                         <div class="col-md-6 mb-3">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="perlu_setuju" value="1"
@@ -206,6 +266,10 @@
                                 </label>
                             </div>
                         </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                         <div class="col-md-6 mb-3 {{ $a->perlu_setuju ? '' : 'd-none' }}"
                              id="roleSetujuEdit{{ $a->id }}">
                             <label class="form-label">Role Persetujuan</label>
@@ -217,17 +281,29 @@
                                 @endforeach
                             </select>
                         </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                         <div class="col-12 mb-3">
                             <label class="form-label">Deskripsi</label>
                             <textarea name="deskripsi" class="form-control" rows="3">{{ $a->deskripsi }}</textarea>
                         </div>
                     </div>
                 </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                 <div class="modal-footer">
                     <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                     <button class="btn btn-warning">Update</button>
                 </div>
             </form>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         </div>
     </div>
 </div>

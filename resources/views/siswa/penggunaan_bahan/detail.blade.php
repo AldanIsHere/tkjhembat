@@ -1,8 +1,17 @@
 @extends('layouts.siswa')
 @section('title', 'Detail Penggunaan Bahan')
+<<<<<<< HEAD
 @section('content')
 <div class="container-fluid">
     <h4 class="mb-3">Detail Penggunaan Bahan</h4>
+=======
+
+@section('content')
+<div class="container-fluid">
+
+    <h4 class="mb-3">Detail Penggunaan Bahan</h4>
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
     <div class="card shadow-sm shadow-lg border-1">
         <div class="card-body">
             <table class="table table-borderless mb-0">
@@ -33,8 +42,16 @@
             </table>
         </div>
     </div>
+<<<<<<< HEAD
     <a href="{{ route('siswa.penggunaan_bahan.index') }}" class="btn btn-secondary mt-3">
         Kembali
     </a>
+=======
+
+    <a href="{{ route('siswa.penggunaan_bahan.index') }}" class="btn btn-secondary mt-3">
+        Kembali
+    </a>
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 </div>
 @endsection

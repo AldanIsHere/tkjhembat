@@ -1,5 +1,6 @@
 @extends('layouts.siswa')
 @section('title', 'QR Berhasil Divalidasi')
+<<<<<<< HEAD
 @section('content')
 <div class="container py-4">
     <div class="row justify-content-center">
@@ -56,3 +57,14 @@
 }
 </style>
 @endsection
+=======
+
+@section('content')
+<div class="container">
+    <h2>QR Berhasil Divalidasi!</h2>
+    <p>Peminjaman barang Anda telah berhasil divalidasi dan siap dikirim ke guru untuk persetujuan.</p>
+    <a href="{{ route('siswa.peminjaman.index') }}" class="btn btn-success">Kembali ke Daftar Peminjaman</a>
+
+</div>
+@endsection
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d

@@ -50,11 +50,20 @@ Route::prefix('admin')->group(function() {
     // Route untuk QR Code
     Route::get('/barang/scan', [BarangController::class, 'scan'])->name('barang.scan');
     Route::post('/barang/validate-qr', [BarangController::class, 'validateQR'])->name('barang.validate_qr');
+<<<<<<< HEAD
     Route::post('/barang/validate-qr-image', [BarangController::class, 'validateQRImage'])->name('barang.validate_qr_image');
     Route::post('/barang/tarik-sarpras', [BarangController::class, 'tarikSarpras'])->name('barang.tarik_sarpras');
     Route::post('/barang/{id}/sync', [BarangController::class, 'syncSarpras'])->name('barang.sync_sarpras');
     Route::post('/barang/{id}/generate-qr', [BarangController::class, 'generateQr'])->name('barang.generate_qr');
     Route::get('/barang/test-api', [BarangController::class, 'testApiConnection'])->name('barang.test_api'); 
+=======
+    Route::post('/barang/validate-qr-image', [BarangController::class, 'validateQRImage'])->name('barang.validate_qr_image'); // TAMBAH INI
+    Route::post('/barang/tarik-sarpras', [BarangController::class, 'tarikSarpras'])->name('barang.tarik_sarpras');
+    Route::post('/barang/{id}/sync', [BarangController::class, 'syncSarpras'])->name('barang.sync_sarpras');
+    Route::post('/barang/{id}/generate-qr', [BarangController::class, 'generateQr'])->name('barang.generate_qr');
+    Route::get('/barang/test-api', [BarangController::class, 'testApiConnection'])->name('barang.test_api'); // TAMBAH INI JIKA DIPERLUKAN
+    // Tambahkan di dalam group admin atau di luar
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
     Route::get('/admin/barang/scan-webcam', [BarangController::class, 'scanWebcam'])->name('barang.scan_webcam');
     Route::post('/admin/barang/validate-webcam-qr', [BarangController::class, 'validateWebcamQR'])->name('barang.validate_webcam_qr');
     // CRUD barang
@@ -73,13 +82,22 @@ Route::prefix('admin')->group(function() {
 
 // ======================= GURU =========================
 Route::prefix('guru')->name('guru.')->group(function () {
+<<<<<<< HEAD
+=======
+    // DASHBOARD
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
     Route::get('/dashboard', [GuruDashboard::class, 'index'])->name('dashboard');
 
     // ================= PEMINJAMAN =================
     Route::get('/peminjaman', [GuruPeminjaman::class, 'index'])->name('peminjaman.index');
     Route::get('/peminjaman/{id}', [GuruPeminjaman::class, 'show'])->name('peminjaman.show');
+<<<<<<< HEAD
     // Route::post('/peminjaman/{id}/approve', [GuruPeminjaman::class, 'approve'])->name('peminjaman.approve');
     // Route::post('/peminjaman/{id}/reject', [GuruPeminjaman::class, 'reject'])->name('peminjaman.reject');
+=======
+    Route::post('/peminjaman/{id}/approve', [GuruPeminjaman::class, 'approve'])->name('peminjaman.approve');
+    Route::post('/peminjaman/{id}/reject', [GuruPeminjaman::class, 'reject'])->name('peminjaman.reject');
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 
     // ================= PENGGUNAAN BAHAN =================
     Route::get('/penggunaan-bahan', [GuruPenggunaanBahan::class, 'index'])->name('penggunaan_bahan.index');
@@ -105,10 +123,15 @@ Route::prefix('siswa')->group(function() {
     Route::get('peminjaman/detail/{id}', [SiswaPeminjaman::class, 'detail'])->name('siswa.peminjaman.detail');
 
     // SCAN & VALIDASI QR
+<<<<<<< HEAD
    Route::get('peminjaman/scan/{id}', [ScanController::class, 'scanQr'])->name('siswa.peminjaman.scan_qr');
     Route::get('peminjaman/scan-success/{id}', [ScanController::class, 'scanSuccess'])->name('siswa.peminjaman.scan_success'); 
     Route::post('peminjaman/scan/validate', [ScanController::class, 'validateQr'])->name('siswa.peminjaman.scan.validate');
     Route::post('peminjaman/scan/validate-camera', [ScanController::class, 'validateCameraQr'])->name('siswa.peminjaman.scan.validate_camera');
+=======
+    Route::get('peminjaman/scan/{id}', [ScanController::class, 'scanQr'])->name('siswa.peminjaman.scan_qr');
+    Route::post('peminjaman/scan/validate', [ScanController::class, 'validateQr'])->name('siswa.peminjaman.scan.validate');
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 
     // PENGEMBALIAN
     Route::get('peminjaman/return/{id}', [SiswaPeminjaman::class, 'returnForm'])->name('siswa.peminjaman.return');

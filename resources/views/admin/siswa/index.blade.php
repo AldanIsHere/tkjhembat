@@ -1,7 +1,15 @@
 @extends('layouts.admin')
 @section('title', 'Data Siswa')
+<<<<<<< HEAD
 @section('content')
 <div class="container-fluid">
+=======
+
+@section('content')
+<div class="container-fluid">
+
+    {{-- HEADER --}}
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h4 class="mb-0">
             <i class="bi bi-people-fill me-2"></i> Data Siswa
@@ -10,12 +18,22 @@
             <i class="bi bi-plus-circle me-1"></i> Tambah Siswa
         </button>
     </div>
+<<<<<<< HEAD
+=======
+
+    {{-- ALERT --}}
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
     @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
     @endif
+<<<<<<< HEAD
+=======
+
+    {{-- TABLE --}}
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
     <div class="card">
         <div class="card-header bg-white">
             <strong>Daftar Siswa</strong>
@@ -23,6 +41,10 @@
                 Total: {{ $siswa->count() }}
             </span>
         </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         <div class="card-body p-0">
             <div class="table-responsive">
                 <table class="table table-bordered table-hover align-middle mb-0">
@@ -90,6 +112,11 @@
         </div>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+
+{{-- ================= MODAL TAMBAH ================= --}}
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 <div class="modal fade" id="modalTambah" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
@@ -99,11 +126,16 @@
                     <h5 class="modal-title">Tambah Siswa</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                 <div class="modal-body">
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label class="form-label">Nama</label>
                             <input type="text" name="nama" class="form-control" required>
+<<<<<<< HEAD
                             <label class="form-label mt-2">Email</label>
                             <input type="email" name="email" class="form-control" required>
                             <label class="form-label mt-2">Password</label>
@@ -118,11 +150,38 @@
                             <input type="text" name="jurusan" class="form-control">
                             <label class="form-label mt-2">Telepon</label>
                             <input type="text" name="telepon" class="form-control">
+=======
+
+                            <label class="form-label mt-2">Email</label>
+                            <input type="email" name="email" class="form-control" required>
+
+                            <label class="form-label mt-2">Password</label>
+                            <input type="text" name="password" class="form-control" required>
+
+                            <label class="form-label mt-2">NIS</label>
+                            <input type="text" name="nis" class="form-control">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Kelas</label>
+                            <input type="text" name="kelas" class="form-control">
+
+                            <label class="form-label mt-2">Jurusan</label>
+                            <input type="text" name="jurusan" class="form-control">
+
+                            <label class="form-label mt-2">Telepon</label>
+                            <input type="text" name="telepon" class="form-control">
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                             <label class="form-label mt-2">Foto</label>
                             <input type="file" name="foto" class="form-control">
                         </div>
                     </div>
                 </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                 <div class="modal-footer">
                     <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                     <button class="btn btn-primary">Simpan</button>
@@ -131,7 +190,15 @@
         </div>
     </div>
 </div>
+<<<<<<< HEAD
 @foreach($siswa as $s)
+=======
+
+{{-- ================= MODAL EDIT & FOTO ================= --}}
+@foreach($siswa as $s)
+
+{{-- MODAL EDIT --}}
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 <div class="modal fade" id="modalEdit{{ $s->id }}" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
@@ -142,11 +209,16 @@
                     <h5 class="modal-title">Edit Siswa</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                 <div class="modal-body">
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label class="form-label">Nama</label>
                             <input type="text" name="nama" value="{{ $s->nama }}" class="form-control" required>
+<<<<<<< HEAD
                             <label class="form-label mt-2">Email</label>
                             <input type="email" name="email" value="{{ $s->email }}" class="form-control" required>
                             <label class="form-label mt-2">Password (opsional)</label>
@@ -161,11 +233,38 @@
                             <input type="text" name="jurusan" value="{{ $s->jurusan }}" class="form-control">
                             <label class="form-label mt-2">Telepon</label>
                             <input type="text" name="telepon" value="{{ $s->telepon }}" class="form-control">
+=======
+
+                            <label class="form-label mt-2">Email</label>
+                            <input type="email" name="email" value="{{ $s->email }}" class="form-control" required>
+
+                            <label class="form-label mt-2">Password (opsional)</label>
+                            <input type="text" name="password" class="form-control">
+
+                            <label class="form-label mt-2">NIS</label>
+                            <input type="text" name="nis" value="{{ $s->nis }}" class="form-control">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Kelas</label>
+                            <input type="text" name="kelas" value="{{ $s->kelas }}" class="form-control">
+
+                            <label class="form-label mt-2">Jurusan</label>
+                            <input type="text" name="jurusan" value="{{ $s->jurusan }}" class="form-control">
+
+                            <label class="form-label mt-2">Telepon</label>
+                            <input type="text" name="telepon" value="{{ $s->telepon }}" class="form-control">
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                             <label class="form-label mt-2">Foto</label>
                             <input type="file" name="foto" class="form-control">
                         </div>
                     </div>
                 </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                 <div class="modal-footer">
                     <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                     <button class="btn btn-warning">Update</button>
@@ -174,6 +273,11 @@
         </div>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+
+{{-- MODAL FOTO --}}
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 <div class="modal fade" id="modalFoto{{ $s->id }}" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -191,5 +295,9 @@
         </div>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 @endforeach
 @endsection

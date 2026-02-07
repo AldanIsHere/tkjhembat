@@ -1,7 +1,14 @@
 @extends('layouts.siswa')
 @section('title', 'Penggunaan Bahan')
+<<<<<<< HEAD
 @section('content')
 <div class="container-fluid">
+=======
+
+@section('content')
+<div class="container-fluid">
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h4 class="mb-0">Riwayat Penggunaan Bahan</h4>
 
@@ -9,6 +16,10 @@
             <i class="bi bi-plus-circle"></i> Gunakan Bahan
         </a>
     </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
     <div class="card shadow-sm shadow-lg bordedr-1">
         <div class="card-body p-0">
             <div class="table-responsive">

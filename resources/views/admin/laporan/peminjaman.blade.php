@@ -1,5 +1,9 @@
 @extends('layouts.admin')
 @section('title', 'Laporan Peminjaman')
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 @php
     $statusConfig = [
         'pending'      => ['color' => 'warning', 'icon' => 'bi-clock', 'label' => 'Pending'],
@@ -8,6 +12,10 @@
         'dikembalikan' => ['color' => 'success', 'icon' => 'bi-check-circle', 'label' => 'Dikembalikan'],
         'ditolak'      => ['color' => 'danger', 'icon' => 'bi-x-circle', 'label' => 'Ditolak'],
     ];
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
     $getStatusConfig = function ($status) use ($statusConfig) {
         return $statusConfig[$status] ?? [
             'color' => 'secondary',
@@ -16,6 +24,10 @@
         ];
     };
 @endphp
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 @section('content')
 <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -23,11 +35,19 @@
             <i class="bi bi-clipboard-data me-2"></i>
             Laporan Peminjaman Barang
         </h4>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         <div class="d-flex gap-2">
             <a href="{{ request()->fullUrlWithQuery(['export' => 'excel']) }}"
                class="btn btn-success btn-sm">
                 <i class="bi bi-file-earmark-excel me-1"></i> Export Excel
             </a>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
             <button onclick="window.print()" class="btn btn-outline-secondary btn-sm">
                 <i class="bi bi-printer me-1"></i> Cetak
             </button>
@@ -47,6 +67,10 @@
                         @endforeach
                     </select>
                 </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                 <div class="col-md-3">
                     <label class="form-label">Tanggal Mulai</label>
                     <input type="date"
@@ -55,6 +79,10 @@
                            value="{{ request('start_date') }}"
                            onchange="this.form.submit()">
                 </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                 <div class="col-md-3">
                     <label class="form-label">Tanggal Akhir</label>
                     <input type="date"
@@ -63,6 +91,10 @@
                            value="{{ request('end_date') }}"
                            onchange="this.form.submit()">
                 </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                 <div class="col-md-2 d-flex align-items-end">
                     <a href="{{ route('admin.laporan.peminjaman') }}"
                        class="btn btn-outline-secondary w-100">
@@ -92,28 +124,54 @@
                     @php $status = $getStatusConfig($p->status); @endphp
                     <tr>
                         <td>{{ $p->kode }}</td>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                         <td>
                             {{ $p->siswa->nama ?? '-' }}<br>
                             <small class="text-muted">{{ $p->siswa->nis ?? '' }}</small>
                         </td>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                         <td>
                             {{ $p->barang->nama ?? $p->barang_nama }}<br>
                             <small class="text-muted">{{ $p->barang->kode ?? '' }}</small>
                         </td>
+<<<<<<< HEAD
                         <td class="text-center">{{ $p->jumlah }}</td>
+=======
+
+                        <td class="text-center">{{ $p->jumlah }}</td>
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                         <td class="text-center">
                             <span class="badge bg-{{ $status['color'] }}">
                                 <i class="bi {{ $status['icon'] }} me-1"></i>
                                 {{ $status['label'] }}
                             </span>
                         </td>
+<<<<<<< HEAD
                         <td>
                             {{ $p->guru->nama ?? 'Belum ditangani' }}
                         </td>
+=======
+
+                        <td>
+                            {{ $p->guru->nama ?? 'Belum ditangani' }}
+                        </td>
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                         <td class="text-center">
                             {{ $p->tanggal_pinjam }}<br>
                             <small class="text-muted">{{ $p->jam_pinjam }}</small>
                         </td>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                         <td class="text-center">
                             @if($p->tanggal_kembali)
                                 {{ $p->tanggal_kembali }}<br>
@@ -134,5 +192,9 @@
             </table>
         </div>
     </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 </div>
 @endsection

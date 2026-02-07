@@ -1,5 +1,11 @@
 <?php
+<<<<<<< HEAD
 namespace App\Http\Controllers\Siswa;
+=======
+
+namespace App\Http\Controllers\Siswa;
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;

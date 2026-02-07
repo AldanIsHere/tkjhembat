@@ -7,6 +7,10 @@ untuk di scan kamera ini metode nya sama kaya yang ada di controller Admin Baran
 -->
 @extends('layouts.admin')
 @section('title', 'Scan QR Code via Webcam')
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 <style>
     #scanner-container {
         position: relative;
@@ -14,12 +18,20 @@ untuk di scan kamera ini metode nya sama kaya yang ada di controller Admin Baran
         max-width: 640px;
         margin: 0 auto;
     }
+<<<<<<< HEAD
+=======
+    
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
     #reader {
         width: 100%;
         height: auto;
         border-radius: 8px;
         border: 3px solid #dee2e6;
     }
+<<<<<<< HEAD
+=======
+    
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
     #scan-region {
         position: absolute;
         top: 20%;
@@ -31,11 +43,19 @@ untuk di scan kamera ini metode nya sama kaya yang ada di controller Admin Baran
         pointer-events: none;
         animation: pulse 2s infinite;
     }
+<<<<<<< HEAD
+=======
+    
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
     @keyframes pulse {
         0% { border-color: #0d6efd; }
         50% { border-color: #ffc107; }
         100% { border-color: #0d6efd; }
     }
+<<<<<<< HEAD
+=======
+    
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
     #result-overlay {
         position: absolute;
         bottom: 20px;
@@ -47,6 +67,10 @@ untuk di scan kamera ini metode nya sama kaya yang ada di controller Admin Baran
         border-radius: 0 0 8px 8px;
         display: none;
     }
+<<<<<<< HEAD
+=======
+    
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
     .scan-animation {
         position: absolute;
         top: 20%;
@@ -55,24 +79,45 @@ untuk di scan kamera ini metode nya sama kaya yang ada di controller Admin Baran
         height: 2px;
         background: #0d6efd;
         animation: scan 2s linear infinite;
+<<<<<<< HEAD
     } 
+=======
+    }
+    
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
     @keyframes scan {
         0% { top: 20%; }
         50% { top: 80%; }
         100% { top: 20%; }
     }
+<<<<<<< HEAD
+=======
+    
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
     .qr-data-box {
         max-height: 200px;
         overflow-y: auto;
         font-size: 12px;
     }
+<<<<<<< HEAD
     .hidden {
         display: none !important;
     }
+=======
+    
+    .hidden {
+        display: none !important;
+    }
+    
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
     .scanner-active {
         border: 3px solid #28a745 !important;
         box-shadow: 0 0 20px rgba(40, 167, 69, 0.3);
     }
+<<<<<<< HEAD
+=======
+    
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
     #scanner-loading {
         position: absolute;
         top: 50%;
@@ -81,6 +126,10 @@ untuk di scan kamera ini metode nya sama kaya yang ada di controller Admin Baran
         z-index: 100;
     }
 </style>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 @section('content')
 <div class="container-fluid">
     <div class="row">
@@ -189,7 +238,13 @@ untuk di scan kamera ini metode nya sama kaya yang ada di controller Admin Baran
                                     <button type="button" class="btn btn-secondary" id="reset-btn">
                                         <i class="bi bi-arrow-clockwise me-1"></i> Reset
                                     </button>
+<<<<<<< HEAD
                                     <div>                            
+=======
+                                    
+                                    <div>
+                                                                           
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                                         <button type="submit" class="btn btn-success" id="submit-btn" disabled>
                                             <i class="bi bi-cloud-download me-1"></i> Tarik dari SARPRAS
                                         </button>
@@ -260,6 +315,10 @@ atau langsung kodenya: 1.1.112.BMW-01"></textarea>
     </div>
 </div>
 <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 <script>
 let html5QrCode = null;
 let isScanning = false;
@@ -322,11 +381,19 @@ function showResultOverlay(message, isSuccess = true) {
 }
 function setExampleQR(type) {
     let exampleText = '';
+<<<<<<< HEAD
+=======
+    
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
     if (type === 'url') {
         exampleText = 'https://keeply.aryajaka.site/kodeunik=1.1.112.BMW-01/jenis=kendaraan';
     } else if (type === 'kode') {
         exampleText = '1.1.112.BMW-01';
     }
+<<<<<<< HEAD
+=======
+    
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
     processScannedQR(exampleText);
     addLog(`Contoh QR di-set: ${type}`, 'info');
 }
@@ -334,6 +401,10 @@ function processScannedQR(qrText) {
     if (!qrText || qrText === lastScannedText) {
         return;
     }
+<<<<<<< HEAD
+=======
+    
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
     lastScannedText = qrText;
     if (elements.lastQrData) {
         elements.lastQrData.textContent = qrText;
@@ -359,6 +430,10 @@ async function validateAndParseQR(qrText) {
         if (!response.ok) {
             throw new Error(`Server error: ${response.status}`);
         }
+<<<<<<< HEAD
+=======
+        
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         const data = await response.json();
         addLog('Response dari server diterima', 'success');
         
@@ -384,6 +459,10 @@ async function validateAndParseQR(qrText) {
         } else {
             showParsingError(data.message, qrText);
         }
+<<<<<<< HEAD
+=======
+        
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
     } catch (error) {
         console.error('Validation error:', error);
         addLog(`Error validasi: ${error.message}`, 'error');
@@ -593,6 +672,10 @@ async function startScanning() {
         if (elements.scannerLoading) {
             elements.scannerLoading.classList.add('hidden');
         }
+<<<<<<< HEAD
+=======
+        
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         alert(`Tidak dapat memulai kamera: ${error.message}\n\nPastikan izinkan akses kamera.`);
     }
 }

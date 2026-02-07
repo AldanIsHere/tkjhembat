@@ -1,5 +1,11 @@
 <?php
+<<<<<<< HEAD
 namespace App\Http\Controllers\Admin;
+=======
+
+namespace App\Http\Controllers\Admin;
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Siswa;
@@ -12,6 +18,10 @@ class SiswaController extends Controller
         $siswa = Siswa::orderBy('nama')->get();
         return view('admin.siswa.index', compact('siswa'));
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
     public function store(Request $request)
     {
         $request->validate([
@@ -24,6 +34,10 @@ class SiswaController extends Controller
             'telepon'  => 'nullable|string|max:50',
             'foto'     => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         $fotoPath = null;
         if ($request->hasFile('foto')) {
             $file = $request->file('foto');
@@ -31,6 +45,10 @@ class SiswaController extends Controller
             $file->move(public_path('uploads/foto_siswa'), $filename);
             $fotoPath = 'uploads/foto_siswa/' . $filename;
         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         Siswa::create([
             'nama'     => $request->nama,
             'email'    => $request->email,
@@ -41,8 +59,15 @@ class SiswaController extends Controller
             'telepon'  => $request->telepon,
             'foto'     => $fotoPath,
         ]);
+<<<<<<< HEAD
         return back()->with('success', 'Siswa berhasil ditambahkan');
     }
+=======
+
+        return back()->with('success', 'Siswa berhasil ditambahkan');
+    }
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
     public function update(Request $request, $id)
     {
         $siswa = Siswa::findOrFail($id);
@@ -67,6 +92,10 @@ class SiswaController extends Controller
             $file->move(public_path('uploads/foto_siswa'), $filename);
             $siswa->foto = 'uploads/foto_siswa/' . $filename;
         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         $siswa->nama     = $request->nama;
         $siswa->email    = $request->email;
         $siswa->nis      = $request->nis;
@@ -77,6 +106,7 @@ class SiswaController extends Controller
         if ($request->password) {
             $siswa->password = $request->password;
         }
+<<<<<<< HEAD
         $siswa->save();
         return back()->with('success', 'Siswa berhasil diperbarui');
     }
@@ -87,6 +117,24 @@ class SiswaController extends Controller
             unlink(public_path($siswa->foto));
         }
         $siswa->delete();
+=======
+
+        $siswa->save();
+
+        return back()->with('success', 'Siswa berhasil diperbarui');
+    }
+
+    public function destroy($id)
+    {
+        $siswa = Siswa::findOrFail($id);
+
+        if ($siswa->foto && file_exists(public_path($siswa->foto))) {
+            unlink(public_path($siswa->foto));
+        }
+
+        $siswa->delete();
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         return back()->with('success', 'Siswa berhasil dihapus');
     }
 }

@@ -3,12 +3,24 @@
 
 @section('content')
 <div class="container-fluid">
+<<<<<<< HEAD
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h4 class="mb-0">Daftar Peminjaman</h4>
+=======
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="mb-0">Daftar Peminjaman</h4>
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         <a href="{{ route('siswa.peminjaman.barang') }}" class="btn btn-success">
             <i class="bi bi-plus-circle"></i> Pinjam Baru
         </a>
     </div>
+<<<<<<< HEAD
+=======
+
+    {{-- FILTER STATUS --}}
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
     <div class="mb-3">
         <form method="GET" class="row g-2">
             <div class="col-md-3">
@@ -23,6 +35,10 @@
             </div>
         </form>
     </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
     <div class="card shadow-sm shadow-lg bordedr-1">
         <div class="card-body p-0">
             <div class="table-responsive">
@@ -87,5 +103,9 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 </div>
 @endsection

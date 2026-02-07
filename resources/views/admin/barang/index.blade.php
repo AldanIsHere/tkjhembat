@@ -1,5 +1,9 @@
 @extends('layouts.admin')
 @section('title', 'Manajemen Barang')
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 @section('content')
 <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -50,6 +54,10 @@
                 </div>
             </div>
         </div>
+<<<<<<< HEAD
+=======
+        
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         <div class="card-body p-0">
             <div class="table-responsive">
                 <table class="table table-bordered table-hover align-middle mb-0">
@@ -592,23 +600,39 @@ document.addEventListener('DOMContentLoaded', function() {
         const kode = this.querySelector('input[name="kode"]');
         const kategori = this.querySelector('select[name="kategori_id"]');
         const lokasi = this.querySelector('select[name="lokasi_id"]');
+<<<<<<< HEAD
+=======
+        
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         if (!nama.value.trim()) {
             e.preventDefault();
             alert('Nama barang harus diisi');
             nama.focus();
             return false;
         }
+<<<<<<< HEAD
+=======
+        
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         if (!kode.value.trim()) {
             e.preventDefault();
             alert('Kode harus digenerate. Pastikan nama barang sudah diisi.');
             nama.focus();
             return false;
         }
+<<<<<<< HEAD
+=======
+        
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         if (!kategori.value || !lokasi.value) {
             e.preventDefault();
             alert('Kategori dan lokasi harus dipilih');
             return false;
         }
+<<<<<<< HEAD
+=======
+        
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         return true;
     });
     document.getElementById('modalTambah')?.addEventListener('show.bs.modal', function() {

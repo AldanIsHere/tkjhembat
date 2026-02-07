@@ -1,7 +1,14 @@
 @extends('layouts.siswa')
 @section('title', 'Daftar Barang')
+<<<<<<< HEAD
 @section('content')
 <div class="container py-4">
+=======
+
+@section('content')
+<div class="container py-4">
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
     <div class="d-flex justify-content-between align-items-center mb-5">
         <div>
             <h4 class="fw-bold mb-1 text-dark">Daftar Barang Tersedia</h4>
@@ -11,10 +18,21 @@
             <i class="fas fa-boxes me-1"></i> {{ count($barang) }} Barang
         </div>
     </div>
+<<<<<<< HEAD
     <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
         @forelse($barang as $b)
         <div class="col">
             <div class="card h-100 rounded-4 overflow-hidden barang-card shadow-sm shadow-lg">
+=======
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
+
+        @forelse($barang as $b)
+        <div class="col">
+            <div class="card h-100 rounded-4 overflow-hidden barang-card shadow-sm shadow-lg">
+
+                
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                 <div class="card-header bg-white border-bottom-0 pt-3 pb-0">
                     <div class="d-flex justify-content-between align-items-start">
                         <span class="badge bg-light text-dark border px-2 py-1 rounded-pill fw-normal small">
@@ -26,10 +44,22 @@
                         </div>
                     </div>
                 </div>
+<<<<<<< HEAD
                 <div class="card-body d-flex flex-column pt-2 pb-3">
                     <h6 class="fw-bold text-dark mb-1 line-clamp-2" title="{{ $b->nama }}">
                         {{ $b->nama }}
                     </h6>
+=======
+
+             
+                <div class="card-body d-flex flex-column pt-2 pb-3">
+
+                    <h6 class="fw-bold text-dark mb-1 line-clamp-2" title="{{ $b->nama }}">
+                        {{ $b->nama }}
+                    </h6>
+
+                
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                     @if($b->merk)
                         <div class="mb-2">
                             <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25">
@@ -37,6 +67,11 @@
                             </span>
                         </div>
                     @endif
+<<<<<<< HEAD
+=======
+
+             
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                     @if($b->spesifikasi)
                         <div class="mb-3">
                             <small class="text-muted d-block mb-1">Spesifikasi</small>
@@ -45,6 +80,10 @@
                             </div>
                         </div>
                     @endif
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                     <div class="mb-3">
                         <small class="text-muted d-block mb-1">Kondisi</small>
                         <span class="badge py-1 px-2 rounded-1 fw-normal 
@@ -56,7 +95,13 @@
                             {{ $b->kondisi ?? 'Tidak Diketahui' }}
                         </span>
                     </div>
+<<<<<<< HEAD
                 </div>
+=======
+
+                </div>
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                 <div class="card-footer bg-white border-top-0 pt-0">
                     @if($b->stok > 0)
                         <a href="{{ route('siswa.peminjaman.create', $b->id) }}"
@@ -71,6 +116,10 @@
                         </button>
                     @endif
                 </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                 <div class="position-absolute top-0 end-0 mt-3 me-3">
                     @if($b->stok > 0)
                         <span class="badge bg-success bg-opacity-90 text-white rounded-pill px-2 py-1 small shadow-sm">
@@ -82,6 +131,10 @@
                         </span>
                     @endif
                 </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
             </div>
         </div>
         @empty
@@ -97,12 +150,22 @@
             </div>
         </div>
         @endforelse
+<<<<<<< HEAD
     </div>
+=======
+
+    </div>
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 </div>
 @endsection
 
 @push('styles')
 <style>
+<<<<<<< HEAD
+=======
+/* ================= CARD DEPTH ================= */
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 .barang-card {
     border: 1px solid rgba(0,0,0,0.08);
     background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%);
@@ -116,6 +179,11 @@
     box-shadow: 0 12px 30px rgba(0,0,0,0.15);
     border-color: rgba(13,110,253,0.2);
 }
+<<<<<<< HEAD
+=======
+
+/* ================= TEXT CLAMP ================= */
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 .line-clamp-2 {
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -130,6 +198,11 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+<<<<<<< HEAD
+=======
+
+/* ================= BUTTON ================= */
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 .btn-primary {
     background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
     border: none;

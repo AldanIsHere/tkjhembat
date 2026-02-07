@@ -1,5 +1,9 @@
 @extends('layouts.admin')
 @section('title', 'Data Guru')
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 @section('content')
 <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -23,6 +27,10 @@
                 Total: {{ $guru->count() }}
             </span>
         </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         <div class="card-body p-0">
             <div class="table-responsive">
                 <table class="table table-bordered table-hover align-middle mb-0">
@@ -97,11 +105,16 @@
                     <h5 class="modal-title">Tambah Guru</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                 <div class="modal-body">
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label class="form-label">Nama</label>
                             <input type="text" name="nama" class="form-control" required>
+<<<<<<< HEAD
                             <label class="form-label mt-2">Email</label>
                             <input type="email" name="email" class="form-control" required>
                             <label class="form-label mt-2">Password</label>
@@ -114,11 +127,35 @@
                             <input type="text" name="telepon" class="form-control">
                             <label class="form-label mt-2">Jabatan</label>
                             <input type="text" name="jabatan" class="form-control">
+=======
+
+                            <label class="form-label mt-2">Email</label>
+                            <input type="email" name="email" class="form-control" required>
+
+                            <label class="form-label mt-2">Password</label>
+                            <input type="password" name="password" class="form-control" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">NIP</label>
+                            <input type="text" name="nip" class="form-control">
+
+                            <label class="form-label mt-2">Telepon</label>
+                            <input type="text" name="telepon" class="form-control">
+
+                            <label class="form-label mt-2">Jabatan</label>
+                            <input type="text" name="jabatan" class="form-control">
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                             <label class="form-label mt-2">Foto</label>
                             <input type="file" name="foto" class="form-control">
                         </div>
                     </div>
                 </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                 <div class="modal-footer">
                     <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                     <button class="btn btn-success">Simpan</button>
@@ -138,11 +175,16 @@
                     <h5 class="modal-title">Edit Guru</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                 <div class="modal-body">
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label class="form-label">Nama</label>
                             <input type="text" name="nama" value="{{ $g->nama }}" class="form-control" required>
+<<<<<<< HEAD
                             <label class="form-label mt-2">Email</label>
                             <input type="email" name="email" value="{{ $g->email }}" class="form-control" required>
                             <label class="form-label mt-2">Password (opsional)</label>
@@ -155,11 +197,35 @@
                             <input type="text" name="telepon" value="{{ $g->telepon }}" class="form-control">
                             <label class="form-label mt-2">Jabatan</label>
                             <input type="text" name="jabatan" value="{{ $g->jabatan }}" class="form-control">
+=======
+
+                            <label class="form-label mt-2">Email</label>
+                            <input type="email" name="email" value="{{ $g->email }}" class="form-control" required>
+
+                            <label class="form-label mt-2">Password (opsional)</label>
+                            <input type="password" name="password" class="form-control">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">NIP</label>
+                            <input type="text" name="nip" value="{{ $g->nip }}" class="form-control">
+
+                            <label class="form-label mt-2">Telepon</label>
+                            <input type="text" name="telepon" value="{{ $g->telepon }}" class="form-control">
+
+                            <label class="form-label mt-2">Jabatan</label>
+                            <input type="text" name="jabatan" value="{{ $g->jabatan }}" class="form-control">
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                             <label class="form-label mt-2">Foto</label>
                             <input type="file" name="foto" class="form-control">
                         </div>
                     </div>
                 </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
                 <div class="modal-footer">
                     <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                     <button class="btn btn-warning">Update</button>
@@ -185,5 +251,9 @@
         </div>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 @endforeach
 @endsection

@@ -131,8 +131,18 @@
                 </div>
             </div>
         </div>
+<<<<<<< HEAD
     </div>
 </div>
+=======
+        
+       
+
+    </div>
+</div>
+
+<!-- Modal untuk hasil parsing -->
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 <div class="modal fade" id="resultModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -143,6 +153,10 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body" id="resultModalBody">
+<<<<<<< HEAD
+=======
+                <!-- Hasil akan diisi oleh JavaScript -->
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -155,6 +169,10 @@
         </div>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 <style>
 .nav-tabs .nav-link {
     color: #495057;
@@ -162,15 +180,24 @@
     padding: 0.75rem 1rem;
     transition: all 0.3s;
 }
+<<<<<<< HEAD
 .nav-tabs .nav-link:hover {
     background-color: rgba(13, 110, 253, 0.05);
 }
+=======
+
+.nav-tabs .nav-link:hover {
+    background-color: rgba(13, 110, 253, 0.05);
+}
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 .nav-tabs .nav-link.active {
     color: #0d6efd;
     background-color: rgba(13, 110, 253, 0.1);
     border-bottom: 3px solid #0d6efd;
     font-weight: 600;
 }
+<<<<<<< HEAD
 .tab-content {
     padding-top: 1.5rem;
 }
@@ -183,17 +210,48 @@
 .btn-group .btn {
     border-radius: 0.375rem !important;
 }
+=======
+
+.tab-content {
+    padding-top: 1.5rem;
+}
+
+.form-label {
+    margin-bottom: 0.5rem;
+}
+
+.form-text {
+    margin-top: 0.25rem;
+}
+
+.btn-group .btn {
+    border-radius: 0.375rem !important;
+}
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 .alert {
     border-radius: 0.5rem;
     border: none;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 .card {
     border-radius: 0.75rem;
     border: none;
 }
+<<<<<<< HEAD
 .card-header {
     border-radius: 0.75rem 0.75rem 0 0 !important;
 }
+=======
+
+.card-header {
+    border-radius: 0.75rem 0.75rem 0 0 !important;
+}
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 .code-example {
     background-color: #f8f9fa;
     border-left: 4px solid #0d6efd;
@@ -201,11 +259,19 @@
     border-radius: 0.375rem;
     font-size: 0.875rem;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 .badge {
     font-size: 0.75em;
     padding: 0.35em 0.65em;
 }
 </style>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 <script>
 function resetTextForm() {
     document.getElementById('qrInput').value = '';
@@ -220,10 +286,18 @@ function switchToTextTab() {
 }
 function testQRText() {
     const qrString = document.getElementById('qrInput').value.trim();
+<<<<<<< HEAD
+=======
+    
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
     if (!qrString) {
         alert('Masukkan kode QR terlebih dahulu');
         return;
     }
+<<<<<<< HEAD
+=======
+    
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
     showParsingResult(qrString, 'text');
 }
 function showParsingResult(qrText, sourceType) {
@@ -239,6 +313,10 @@ function showParsingResult(qrText, sourceType) {
     .then(response => response.json())
     .then(data => {
         let resultHtml = '';
+<<<<<<< HEAD
+=======
+        
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         if (data.success) {
             resultHtml = `
                 <div class="alert alert-success">
@@ -260,6 +338,10 @@ function showParsingResult(qrText, sourceType) {
                     </div>
                 </div>
             `;
+<<<<<<< HEAD
+=======
+            
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
             if (data.exists) {
                 resultHtml += `
                     <div class="alert alert-warning">
@@ -295,8 +377,15 @@ function showParsingResult(qrText, sourceType) {
                 </div>
             `;
         }
+<<<<<<< HEAD
         document.getElementById('resultModalBody').innerHTML = resultHtml;
         document.getElementById('resultModalTitle').textContent = 'Hasil Parsing QR';
+=======
+        
+        document.getElementById('resultModalBody').innerHTML = resultHtml;
+        document.getElementById('resultModalTitle').textContent = 'Hasil Parsing QR';
+        
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
         if (data.success && !data.exists) {
             document.getElementById('useResultBtn').classList.remove('d-none');
         } else {
@@ -318,6 +407,10 @@ function showParsingResult(qrText, sourceType) {
         modal.show();
     });
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 function useParsedResult() {
     document.getElementById('qrInput').value = document.getElementById('qrInput').value;
     const modal = bootstrap.Modal.getInstance(document.getElementById('resultModal'));

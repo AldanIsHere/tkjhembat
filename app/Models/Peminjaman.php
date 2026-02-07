@@ -1,7 +1,15 @@
 <?php
+<<<<<<< HEAD
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+=======
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
 class Peminjaman extends Model
 {
     // Model untuk tabel `peminjaman`
@@ -9,6 +17,10 @@ class Peminjaman extends Model
     protected $table = 'peminjaman';
     protected $primaryKey = 'id';
     public $timestamps = true;
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
     protected $fillable = [
         'kode', 'peminjam_id', 'peminjam_role', 'setuju_id', 'setuju_role',
         'barang_id', 'barang_nama', 'jumlah', 'tanggal_pinjam', 'tanggal_kembali', 'harus_kembali',
@@ -16,6 +28,7 @@ class Peminjaman extends Model
         'qr_verifikasi', 'qr_code_short', 'qr_validated_at',
         'sarpras_status', 'sarpras_ref', 'sarpras_response', 'sarpras_checked_at', 'catatan'
     ];
+<<<<<<< HEAD
     protected $casts = [
         'tanggal_pinjam' => 'date',
         'tanggal_kembali' => 'date',
@@ -25,18 +38,33 @@ class Peminjaman extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime'
     ];
+=======
+
+    // Relasi ke siswa
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
     public function siswa()
     {
         return $this->belongsTo(Siswa::class, 'peminjam_id');
     }
+<<<<<<< HEAD
+=======
+
+    // Relasi ke guru
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
     public function guru()
     {
         return $this->belongsTo(Guru::class, 'setuju_id');
     }
+<<<<<<< HEAD
+=======
+
+    // Relasi ke barang
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
     public function barang()
     {
         return $this->belongsTo(Barang::class, 'barang_id');
     }
+<<<<<<< HEAD
     protected function qrValidatedAt(): Attribute
     {
         return Attribute::make(
@@ -71,3 +99,6 @@ class Peminjaman extends Model
         });
     }
 }
+=======
+}
+>>>>>>> aa754e4d9f72db066b019e472b32ad5d3ec4e62d
